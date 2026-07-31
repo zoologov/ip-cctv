@@ -84,6 +84,10 @@ td.num, th.num { text-align: right; white-space: nowrap; }
 .item-name { font-weight: 600; }
 .item-model { font-size: 13px; color: var(--text-2); }
 .item-spec { font-size: 13px; color: var(--text-3); margin-top: 3px; }
+.buy { display: inline-block; font-size: 12.5px; margin-top: 5px; white-space: nowrap; }
+.buy::after { content: " ↗"; font-size: 11px; }
+.tag { display: inline-block; font-size: 11px; line-height: 1.5; padding: 0 6px; border-radius: 4px;
+  background: var(--panel-2); color: var(--text-3); border: 1px solid var(--line); margin-left: 6px; vertical-align: 1px; }
 tr.done .item-name, tr.done .item-model { text-decoration: line-through; }
 tr.done td { opacity: 0.55; }
 input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; }
@@ -206,14 +210,14 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   <!-- Двор -->
   <text x="470" y="408" text-anchor="middle" font-size="13" fill="#7c8592">Двор</text>
 
-  <!-- Сосны -->
-  <circle cx="330" cy="440" r="13" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.6"/>
-  <circle cx="395" cy="440" r="13" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.6"/>
-  <text x="316" y="418" text-anchor="end" font-size="11.5" fill="#8fb59a">Сосна · К4</text>
-  <text x="409" y="418" text-anchor="start" font-size="11.5" fill="#8fb59a">Сосна · К3</text>
-  <!-- Размер 35 м от ворот до сосен -->
-  <line x1="362" y1="596" x2="362" y2="456" stroke="#6e7681" stroke-width="1" stroke-dasharray="4 4"/>
-  <text x="352" y="530" text-anchor="end" font-size="11.5" fill="#8d96a3">35 м</text>
+  <!-- Сосны: обе камеры на правой -->
+  <circle cx="330" cy="440" r="12" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.4" opacity="0.7"/>
+  <circle cx="395" cy="440" r="15" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.8"/>
+  <text x="314" y="418" text-anchor="end" font-size="11" fill="#7ba189">Сосна</text>
+  <text x="414" y="418" text-anchor="start" font-size="11.5" fill="#8fb59a">Сосна · К3 и К4</text>
+  <!-- Размер 35 м от ворот до сосны -->
+  <line x1="395" y1="596" x2="395" y2="458" stroke="#6e7681" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="386" y="534" text-anchor="end" font-size="11.5" fill="#8d96a3">35 м</text>
 
   <!-- Забор -->
   <line x1="0" y1="600" x2="300" y2="600" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
@@ -239,8 +243,8 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   <g font-size="11.5" font-weight="700" fill="#0f1114">
     <circle cx="436" cy="578" r="11" fill="#5b93ff"/><text x="436" y="582" text-anchor="middle">К1</text>
     <circle cx="436" cy="542" r="11" fill="#5b93ff"/><text x="436" y="546" text-anchor="middle">К2</text>
-    <circle cx="330" cy="440" r="11" fill="#4fb286"/><text x="330" y="444" text-anchor="middle">К4</text>
-    <circle cx="395" cy="440" r="11" fill="#4fb286"/><text x="395" y="444" text-anchor="middle">К3</text>
+    <circle cx="368" cy="470" r="11" fill="#4fb286"/><text x="368" y="474" text-anchor="middle">К4</text>
+    <circle cx="422" cy="470" r="11" fill="#4fb286"/><text x="422" y="474" text-anchor="middle">К3</text>
   </g>
 </svg>
 <figcaption>Схема условная, без масштаба и привязки к местности. Синие сектора — камеры 8 Мп с углом обзора 111°, зелёные — 4 Мп с углом 95°. Сектора показывают направление и ширину обзора; их длина на рисунке произвольная, реальная дальность подсветки — 30 метров. Баня показана пунктиром: она дальше по берегу и в обзор не попадает.</figcaption>
@@ -271,7 +275,7 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 <tr>
   <td><b>К4</b></td>
   <td class="item-model">HFW2449SP-S-IL-0280B<br>4 Мп, 95°</td>
-  <td>Левая сосна рядом, обзор влево-вверх, V-образно к К3</td>
+  <td>Та же правая сосна, обзор влево-вверх, V-образно к К3</td>
   <td>Гараж, второй дом, проход к бане между ними, край теннисного корта</td>
 </tr>
 </tbody>
@@ -291,6 +295,10 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 </tbody>
 </table>
 </div>
+<div class="note warn">
+<strong>Ключевое неизвестное: расстояние от сосны до берега</strong>
+<p>Подсветка у обеих камер бьёт на 30 метров, дальше ночью только силуэты в остаточном свете. От ворот до сосны 35 метров, а дальше по схеме до второго дома, беседки и летней кухни выходит ещё столько же или больше. Если реально там 50–70 метров, то ночью К3 и К4 у берега не покажут почти ничего, и на этом расстоянии двух камер на одном стволе мало — постройки у воды придётся закрывать камерами на самих постройках, а не с сосны. Прикиньте это расстояние шагами до заказа: от него зависит, четыре камеры брать или сразу шесть.</p>
+</div>
 <div class="note">
 <strong>Практический вывод</strong>
 <p>К1 закрывает главную задачу — номер подъезжающей машины — с запасом, потому что машина останавливается перед воротами в пяти-восьми метрах от камеры. Камеры на соснах работают как обзорные: они покажут, что кто-то шёл от второго дома в сторону бани в 23:40, но не дадут опознать незнакомца у беседки. Если опознание в дальних зонах важно, туда позже добавляется отдельная камера с узким объективом — свободные порты на регистраторе для этого есть.</p>
@@ -303,7 +311,7 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 <thead><tr><th>Зона</th><th>Ситуация</th><th>Чем закрывается позже</th></tr></thead>
 <tbody>
 <tr><td>Баня</td><td>Стоит дальше по берегу, за пределами секторов. Виден только проход к ней между гаражом и вторым домом</td><td>Отдельная камера у бани — уже в планах</td></tr>
-<tr><td>Теннисный корт</td><td>В сектор К4 попадает только ближний угол, основная площадка вне обзора</td><td>Камера на том же дереве, что К4, с разворотом влево-вниз</td></tr>
+<tr><td>Теннисный корт</td><td>В сектор К4 попадает только ближний угол, основная площадка вне обзора</td><td>Камера на левой сосне — она остаётся свободной, трасса и гофра до неё уже будут проложены рядом</td></tr>
 <tr><td>Правая часть участка за первым домом</td><td>Сектор К3 упирается в первый дом, всё правее и за ним не просматривается</td><td>Камера на первом доме, обзор вправо к забору</td></tr>
 <tr><td>Берег правее летней кухни</td><td>Дальний край сектора К3, детализация там уже низкая</td><td>Та же камера на первом доме, развёрнутая к воде</td></tr>
 <tr><td>Дальняя сторона второго дома</td><td>К4 видит фасад, обращённый к соснам, обратная сторона в тени</td><td>Камера на самом втором доме</td></tr>
@@ -312,72 +320,99 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 </div>
 <p class="small">Пять зон закрываются четырьмя камерами: одна на первом доме берёт сразу и правую часть участка, и берег за летней кухней. Это ровно те четыре канала, что остаются свободными на регистраторе, так что при расширении докупаются только камеры и кабель — но свободных портов после этого не останется.</p>
 
+<h2>Сколько кабеля тянуть к сосне</h2>
+<p>Два кабеля, по одному на каждую камеру. Витую пару нельзя разветвить или пустить шлейфом: каждая IP-камера — самостоятельное сетевое устройство, которое занимает свой порт на регистраторе и получает по этому же кабелю питание. Один кабель на две камеры физически не поделить.</p>
+<p>То, что К3 и К4 теперь на одном стволе, всё равно упрощает монтаж: трасса одна, копать и штробить нужно один раз, оба кабеля идут в общей гофре и поднимаются по одному стволу. Поэтому гофра взята 25 мм вместо 20 — два кабеля по 6 мм в двадцатке протягиваются с трудом.</p>
+<div class="tw">
+<table>
+<thead><tr><th>Линия</th><th>Трасса</th><th class="num">Длина с запасом</th></tr></thead>
+<tbody>
+<tr><td>К1</td><td>От регистратора по домику охраны на левую стену</td><td class="num">8 м</td></tr>
+<tr><td>К2</td><td>То же, но выше по стене</td><td class="num">10 м</td></tr>
+<tr><td>К3</td><td>Регистратор → выход из домика → трасса до сосны → 4 м по стволу → петля запаса</td><td class="num">55 м</td></tr>
+<tr><td>К4</td><td>Та же трасса, второй кабель в той же гофре</td><td class="num">55 м</td></tr>
+<tr><td><b>Итого</b></td><td>Два бокса по 100 м, остаток около 70 м — на будущие камеры</td><td class="num"><b>128 м</b></td></tr>
+</tbody>
+</table>
+</div>
+<div class="note">
+<strong>Почему не свитч на дереве</strong>
+<p>Теоретически на сосну можно поставить PoE-свитч и завести к нему один кабель. Но свитчу нужно своё питание, которого на дереве нет, ему нужна герметичная коробка и он становится ещё одной точкой отказа на морозе в −40 °C. Пятьдесят метров второго кабеля стоят около двух тысяч рублей — это дешевле и надёжнее.</p>
+</div>
+
 <h2>Список для заказа</h2>
-<p class="small">Отмечайте позиции галочками по мере заказа — отметки сохраняются в браузере. Ёмкость диска можно переключить, суммы пересчитаются.</p>
+<p class="small">Отмечайте позиции галочками по мере заказа — отметки сохраняются в браузере. Ёмкость диска можно переключить, суммы пересчитаются. Позиции со ссылкой на Ozon — цены по карте, проверены вручную; остальные помечены как оценочные.</p>
 
 <div class="group-head"><h2>Основное оборудование</h2><span class="group-sum" id="sum-core">—</span></div>
 <div class="disk" role="group" aria-label="Ёмкость жёсткого диска">
-  <button type="button" data-tb="4" aria-pressed="false">Диск 4 ТБ</button>
-  <button type="button" data-tb="6" aria-pressed="true">Диск 6 ТБ</button>
+  <button type="button" data-tb="4" aria-pressed="true">Диск 4 ТБ</button>
+  <button type="button" data-tb="6" aria-pressed="false">Диск 6 ТБ</button>
   <button type="button" data-tb="10" aria-pressed="false">Диск 10 ТБ</button>
 </div>
 <div class="tw">
 <table>
 <thead><tr><th style="width:34px"></th><th>Позиция</th><th class="num">Кол-во</th><th class="num">Цена</th><th class="num">Сумма</th></tr></thead>
 <tbody id="rows-core">
-<tr data-id="cam8" data-group="core" data-qty="2" data-price="9500">
+<tr data-id="cam8" data-group="core" data-qty="2" data-price="9575">
   <td><input type="checkbox"></td>
   <td>
     <div class="item-name">Камера 8 Мп над воротами</div>
     <div class="item-model">Dahua DH-IPC-HFW2849SP-S-IL-0280B</div>
     <div class="item-spec">1/2.7", 2.8 мм (111°), F1.6, ИК 30 м плюс тёплый белый свет 30 м, IP67, PoE, −40…+55 °C</div>
+    <a class="buy" href="https://ozon.ru/t/D4tJLQf" target="_blank" rel="noopener">Ozon</a>
   </td>
-  <td class="num">2</td><td class="num">9 500 ₽</td><td class="num sum">19 000 ₽</td>
+  <td class="num">2</td><td class="num">9 575 ₽</td><td class="num sum">19 150 ₽</td>
 </tr>
-<tr data-id="cam4" data-group="core" data-qty="2" data-price="6800">
+<tr data-id="cam4" data-group="core" data-qty="2" data-price="7218">
   <td><input type="checkbox"></td>
   <td>
-    <div class="item-name">Камера 4 Мп на сосны</div>
+    <div class="item-name">Камера 4 Мп на сосну</div>
     <div class="item-model">Dahua DH-IPC-HFW2449SP-S-IL-0280B</div>
     <div class="item-spec">1/2.9", 2.8 мм (95°), F1.6, ИК 30 м плюс тёплый белый свет 30 м, IP67, PoE, −40…+60 °C</div>
+    <a class="buy" href="https://ozon.ru/t/V2Tcgme" target="_blank" rel="noopener">Ozon</a>
   </td>
-  <td class="num">2</td><td class="num">6 800 ₽</td><td class="num sum">13 600 ₽</td>
+  <td class="num">2</td><td class="num">7 218 ₽</td><td class="num sum">14 436 ₽</td>
 </tr>
-<tr data-id="nvr" data-group="core" data-qty="1" data-price="17000">
+<tr data-id="nvr" data-group="core" data-qty="1" data-price="11172">
   <td><input type="checkbox"></td>
   <td>
     <div class="item-name">Видеорегистратор с 8 портами PoE</div>
     <div class="item-model">Dahua DHI-NVR2108HS-8P-4KS3</div>
     <div class="item-spec">8 каналов, 8 портов PoE с бюджетом 72 Вт, вход 144 Мбит/с, один диск до 20 ТБ, H.265+, HDMI 4K. Берётся 8-канальный сразу — каналы прошивкой не наращиваются</div>
+    <a class="buy" href="https://ozon.ru/t/j7w4hmm" target="_blank" rel="noopener">Ozon</a>
   </td>
-  <td class="num">1</td><td class="num">17 000 ₽</td><td class="num sum">17 000 ₽</td>
+  <td class="num">1</td><td class="num">11 172 ₽</td><td class="num sum">11 172 ₽</td>
 </tr>
-<tr data-id="hdd" data-group="core" data-qty="1" data-price="16000">
+<tr data-id="hdd" data-group="core" data-qty="1" data-price="15729">
   <td><input type="checkbox"></td>
   <td>
     <div class="item-name">Жёсткий диск для видеонаблюдения</div>
-    <div class="item-model" id="hdd-model">Seagate SkyHawk ST6000VX009, 6 ТБ</div>
-    <div class="item-spec">SATA 3.5 дюйма, серия для круглосуточной записи. Аналог — WD Purple той же ёмкости. Обычный десктопный диск здесь живёт год-полтора</div>
+    <div class="item-model" id="hdd-model">Seagate SkyHawk ST4000VX016, 4 ТБ</div>
+    <div class="item-spec">SATA 3.5 дюйма, 5400 об/мин, серия для круглосуточной записи. Аналог — WD Purple той же ёмкости. Обычный десктопный диск здесь живёт год-полтора</div>
+    <a class="buy" id="hdd-link" href="https://ozon.ru/t/sXZoXtk" target="_blank" rel="noopener">Ozon</a>
+    <div class="item-spec" id="hdd-hint">Цена проверена по карте Ozon</div>
   </td>
-  <td class="num">1</td><td class="num" id="hdd-price">16 000 ₽</td><td class="num sum">16 000 ₽</td>
+  <td class="num">1</td><td class="num" id="hdd-price">15 729 ₽</td><td class="num sum">15 729 ₽</td>
 </tr>
-<tr data-id="router" data-group="core" data-qty="1" data-price="8500">
+<tr data-id="router" data-group="core" data-qty="1" data-price="6585">
   <td><input type="checkbox"></td>
   <td>
     <div class="item-name">4G-роутер</div>
-    <div class="item-model">Keenetic Runner 4G (KN-2211)</div>
-    <div class="item-spec">Слот для SIM, удалённый доступ без белого IP, автоперезагрузка при потере связи — без неё зависший модем означает поездку на участок</div>
+    <div class="item-model">Netcraze Runner 4G (NC-2212)</div>
+    <div class="item-spec">Слот для SIM, удалённый доступ без белого IP, автоперезагрузка при потере связи — без неё зависший модем означает поездку на участок. Netcraze — это Keenetic после переименования в России, прошивка KeeneticOS и вся логика те же</div>
+    <a class="buy" href="https://ozon.ru/t/J5HBmur" target="_blank" rel="noopener">Ozon</a>
   </td>
-  <td class="num">1</td><td class="num">8 500 ₽</td><td class="num sum">8 500 ₽</td>
+  <td class="num">1</td><td class="num">6 585 ₽</td><td class="num sum">6 585 ₽</td>
 </tr>
-<tr data-id="cable" data-group="core" data-qty="1" data-price="7000">
+<tr data-id="cable" data-group="core" data-qty="2" data-price="4063">
   <td><input type="checkbox"></td>
   <td>
     <div class="item-name">Кабель витая пара, уличный</div>
-    <div class="item-model">UTP cat5e outdoor, 4×2×0.51, чистая медь, оболочка ПЭ, бухта 305 м</div>
-    <div class="item-spec">На четыре камеры нужно около 150 м с запасом на трассу и петли. Бухта берётся целиком, потому что остаток уйдёт на будущие камеры. Только медь и только полиэтилен</div>
+    <div class="item-model">SkyNet UTP outdoor 4×2×0,51, медь, кат.5e, одножильный, бокс 100 м</div>
+    <div class="item-spec">Нужно около 128 м: по 8–10 м на К1 и К2, и по 55 м на К3 и К4 — к сосне идут два отдельных кабеля. Берём два бокса, остаток около 70 м уйдёт на будущие камеры. Только медь и только полиэтилен</div>
+    <a class="buy" href="https://ozon.ru/t/Za2vpIb" target="_blank" rel="noopener">Ozon</a>
   </td>
-  <td class="num">1</td><td class="num">7 000 ₽</td><td class="num sum">7 000 ₽</td>
+  <td class="num">2</td><td class="num">4 063 ₽</td><td class="num sum">8 126 ₽</td>
 </tr>
 </tbody>
 </table>
@@ -393,7 +428,7 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   <td>
     <div class="item-name">Комплект крепления на дерево</div>
     <div class="item-model">Стальная монтажная лента с натяжителем плюс площадка из бруска</div>
-    <div class="item-spec">По комплекту на каждую сосну. Камера крепится к площадке, площадка стягивается лентой вокруг ствола — саморезы в живое дерево не идут</div>
+    <div class="item-spec">По комплекту на каждую камеру, обе на один ствол. Камера крепится к площадке, площадка стягивается лентой вокруг ствола — саморезы в живое дерево не идут</div>
   </td>
   <td class="num">2</td><td class="num">750 ₽</td><td class="num sum">1 500 ₽</td>
 </tr>
@@ -406,14 +441,14 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   </td>
   <td class="num">4</td><td class="num">250 ₽</td><td class="num sum">1 000 ₽</td>
 </tr>
-<tr data-id="pipe" data-group="mat" data-qty="1" data-price="1200">
+<tr data-id="pipe" data-group="mat" data-qty="1" data-price="1600">
   <td><input type="checkbox"></td>
   <td>
     <div class="item-name">Гофра для кабеля</div>
-    <div class="item-model">ПНД гофрированная двустенная 20 мм, 50 м</div>
-    <div class="item-spec">Обязательна на трассе до сосен и по стволу: защита от грызунов, солнца и механики</div>
+    <div class="item-model">ПНД гофрированная двустенная 25 мм, 50 м</div>
+    <div class="item-spec">Обязательна на трассе до сосны и по стволу: защита от грызунов, солнца и механики. Взят диаметр 25, а не 20 мм, потому что в одну гофру идут сразу два кабеля — на К3 и К4</div>
   </td>
-  <td class="num">1</td><td class="num">1 200 ₽</td><td class="num sum">1 200 ₽</td>
+  <td class="num">1</td><td class="num">1 600 ₽</td><td class="num sum">1 600 ₽</td>
 </tr>
 <tr data-id="crimp" data-group="mat" data-qty="1" data-price="1200">
   <td><input type="checkbox"></td>
@@ -500,7 +535,7 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 </div>
 
 <h2>Особенности этого объекта</h2>
-<p>Три вещи в этой схеме требуют внимания на монтаже — они не про выбор оборудования, а про то, как оно себя поведёт на месте.</p>
+<p>Четыре вещи в этой схеме требуют внимания на монтаже — они не про выбор оборудования, а про то, как оно себя поведёт на месте.</p>
 
 <div class="cards">
 <div class="card">
@@ -512,12 +547,12 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   <p>К1 и К2 висят на левой стене домика охраны и разведены по направлениям: одна смотрит вниз-влево на подъезд, вторая влево-вверх внутрь участка. Разнесите их по высоте и следите, чтобы подсветка не била в стену, свес крыши или столб ворот в двух-трёх метрах: отражение засветит весь кадр. Если так выходит, камеру отводят в сторону или снижают мощность подсветки.</p>
 </div>
 <div class="card">
-  <h3>Крепление на сосны</h3>
-  <p>Дерево живое: ствол растёт в толщину, качается на ветру и выделяет смолу. Камера крепится не саморезами, а через деревянную площадку, стянутую стальной лентой с натяжителем — ленту потом можно ослабить. Кабель поднимается по стволу в гофре с запасом-петлёй, иначе через пару лет его перетянет.</p>
+  <h3>Две камеры на одном стволе</h3>
+  <p>Дерево живое: ствол растёт в толщину, качается на ветру и выделяет смолу. Камеры крепятся не саморезами, а через деревянные площадки, стянутые стальной лентой с натяжителем — ленту потом можно ослабить. Разведите К3 и К4 по разные стороны ствола, иначе одна попадёт в кадр другой, а их подсветки будут друг друга слепить. Кабели поднимаются по стволу в общей гофре с запасом-петлёй, иначе через пару лет их перетянет.</p>
 </div>
 <div class="card">
   <h3>Раскачивание и ложные тревоги</h3>
-  <p>На ветру сосна качается, вместе с ней качается кадр, а ветки в поле зрения дают постоянные срабатывания. Поэтому детекцию движения по пикселям надо отключить, а тревоги оставить только по SMD Plus, распознаванию человека и машины. Камеру лучше вешать на высоте 3,5–4 м на толстой части ствола, где амплитуда меньше.</p>
+  <p>На ветру сосна качается, вместе с ней качается кадр, а ветки в поле зрения дают постоянные срабатывания. Теперь это касается обеих дальних камер сразу: они на одном стволе и раскачиваются синхронно. Детекцию движения по пикселям надо отключить, тревоги оставить только по SMD Plus и распознаванию человека и машины. Вешать лучше на высоте 3,5–4 м на толстой части ствола, где амплитуда меньше.</p>
 </div>
 </div>
 
@@ -552,7 +587,7 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   <li><b>Кабель только медный и только в полиэтилене.</b> Дешёвый CCA — это алюминий с медным покрытием: PoE на пятидесяти метрах через него может не дотянуть, а ПВХ-оболочка на морозе трескается, и линия начинает сыпаться после первой зимы.</li>
   <li><b>Регистратор с литерой P.</b> В <code>NVR2108HS-8P-4KS3</code> важна каждая часть: 08 — восемь каналов, 8P — восемь портов PoE. Есть похожая модель <code>NVR2108HS-4KS3</code> без P: тоже восемь каналов, но вообще без PoE, и камеры от неё питаться не будут.</li>
 </ul>
-<p class="tiny">Цены ориентировочные, по состоянию на июль 2026 года. На Ozon они заметно плавают между продавцами: на весь комплект разброс легко достигает 10–15 тысяч, поэтому стоит сверить пару предложений по каждой позиции.</p>
+<p class="tiny">Цены по шести основным позициям — по карте Ozon, проверены вручную в июле 2026 года, ссылки ведут на конкретные товары. Без карты Ozon выйдет дороже примерно на 5–10 процентов. Монтажные материалы и дополнения посчитаны оценочно и помечены на странице: они дают около 12 тысяч из общей суммы, и там разброс между продавцами самый большой.</p>
 
 <footer>
   Расчёт сделан под конкретную схему участка: четыре камеры сейчас, регистратор с запасом до восьми.
@@ -564,23 +599,36 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 <script>
 (function () {
   var DISKS = {
-    4:  { price: 10000, model: "Seagate SkyHawk ST4000VX016, 4 ТБ" },
-    6:  { price: 16000, model: "Seagate SkyHawk ST6000VX009, 6 ТБ" },
-    10: { price: 26000, model: "Seagate SkyHawk ST10000VE0008, 10 ТБ" }
+    4:  { price: 15729, model: "Seagate SkyHawk ST4000VX016, 4 ТБ",
+          url: "https://ozon.ru/t/sXZoXtk",
+          hint: "Цена проверена по карте Ozon" },
+    6:  { price: 21000, model: "Seagate SkyHawk ST6000VX009, 6 ТБ",
+          hint: "Цена оценочная. Стоит проверить: за терабайт 6 ТБ обычно выходит заметно выгоднее, чем 4 ТБ" },
+    10: { price: 33000, model: "Seagate SkyHawk ST10000VE0008, 10 ТБ",
+          hint: "Цена оценочная. Модель на 7200 об/мин — греется и шумит сильнее, для домика охраны это нормально" }
   };
   var GB_PER_DAY = 134;   // 2 камеры 8 Мп по 4 Мбит/с + 2 камеры 4 Мп по 2.2 Мбит/с, H.265+, 15 к/с
   var STORE_KEY = "cctv.bought.v1";
-  var DISK_KEY = "cctv.disk.v1";
+  var DISK_KEY = "cctv.disk.v2";
 
   function fmt(n) { return n.toLocaleString("ru-RU") + " ₽"; }
 
   var rows = Array.prototype.slice.call(document.querySelectorAll("tr[data-id]"));
   var diskBtns = Array.prototype.slice.call(document.querySelectorAll(".disk button"));
 
+  // Позиции без ссылки на конкретный товар помечаются как оценочные
+  rows.forEach(function (row) {
+    if (row.querySelector("a.buy")) return;
+    var tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = "цена оценочная";
+    row.querySelector(".item-spec").appendChild(tag);
+  });
+
   var bought = [];
   try { bought = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { bought = []; }
   var diskTb = parseInt(localStorage.getItem(DISK_KEY), 10);
-  if (!DISKS[diskTb]) diskTb = 6;
+  if (!DISKS[diskTb]) diskTb = 4;
 
   function applyDisk() {
     var d = DISKS[diskTb];
@@ -588,6 +636,14 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
     row.setAttribute("data-price", d.price);
     document.getElementById("hdd-model").textContent = d.model;
     document.getElementById("hdd-price").textContent = fmt(d.price);
+    document.getElementById("hdd-hint").textContent = d.hint;
+    var link = document.getElementById("hdd-link");
+    if (d.url) {
+      link.href = d.url;
+      link.style.display = "";
+    } else {
+      link.style.display = "none";
+    }
     diskBtns.forEach(function (b) {
       b.setAttribute("aria-pressed", String(parseInt(b.dataset.tb, 10) === diskTb));
     });
@@ -653,8 +709,8 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   var CONES = [
     { x: 436, y: 578, bearing: 225, fov: 111, r: 115, fill: "#5b93ff" }, // К1 — наружу, на подъезд
     { x: 436, y: 542, bearing: 300, fov: 111, r: 230, fill: "#5b93ff" }, // К2 — внутрь, на въехавшую машину
-    { x: 330, y: 440, bearing: 320, fov: 95,  r: 300, fill: "#4fb286" }, // К4 — влево-вверх
-    { x: 395, y: 440, bearing: 34,  fov: 95,  r: 330, fill: "#4fb286" }  // К3 — вправо-вверх
+    { x: 395, y: 440, bearing: 309, fov: 95,  r: 320, fill: "#4fb286" }, // К4 — влево-вверх, правая сосна
+    { x: 395, y: 440, bearing: 34,  fov: 95,  r: 330, fill: "#4fb286" }  // К3 — вправо-вверх, та же сосна
   ];
 
   var g = document.getElementById("cones");
