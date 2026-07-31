@@ -22,6 +22,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Подставить хэш коммита в страницу
+        run: |
+          sed -i "s/__COMMIT_SHA__/${GITHUB_SHA:0:7}/g" index.html
+          if grep -q "__COMMIT_SHA__" index.html; then
+            echo "Плейсхолдер __COMMIT_SHA__ не заменился"
+            exit 1
+          fi
+          echo "Ревизия страницы: ${GITHUB_SHA:0:7}"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

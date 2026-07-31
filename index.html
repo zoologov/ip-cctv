@@ -119,6 +119,9 @@ ul { margin: 0 0 14px; padding-left: 22px; }
 li { margin-bottom: 7px; }
 
 footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--text-3); }
+footer p { margin: 0 0 8px; }
+footer p:last-child { margin-bottom: 0; }
+.rev b { font-weight: 600; color: var(--text-2); }
 
 @media (max-width: 720px) {
   .wrap { padding: 28px 16px 60px; }
@@ -140,7 +143,7 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 <p class="lead">Четыре камеры с питанием по одному кабелю, круглосуточная запись на локальный диск в домике охраны, удалённый просмотр с телефона через 4G. Уличные компоненты рассчитаны на морозы до −40 °C.</p>
 <div class="meta">
   <span>Расчёт под конкретную схему объекта</span>
-  <span>Июль 2026</span>
+  <span>Ревизия 30.07.2026</span>
   <span>Цены ориентировочные, Ozon</span>
 </div>
 
@@ -587,11 +590,12 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   <li><b>Кабель только медный и только в полиэтилене.</b> Дешёвый CCA — это алюминий с медным покрытием: PoE на пятидесяти метрах через него может не дотянуть, а ПВХ-оболочка на морозе трескается, и линия начинает сыпаться после первой зимы.</li>
   <li><b>Регистратор с литерой P.</b> В <code>NVR2108HS-8P-4KS3</code> важна каждая часть: 08 — восемь каналов, 8P — восемь портов PoE. Есть похожая модель <code>NVR2108HS-4KS3</code> без P: тоже восемь каналов, но вообще без PoE, и камеры от неё питаться не будут.</li>
 </ul>
-<p class="tiny">Цены по шести основным позициям — по карте Ozon, проверены вручную в июле 2026 года, ссылки ведут на конкретные товары. Без карты Ozon выйдет дороже примерно на 5–10 процентов. Монтажные материалы и дополнения посчитаны оценочно и помечены на странице: они дают около 12 тысяч из общей суммы, и там разброс между продавцами самый большой.</p>
+<p class="tiny">Цены по шести основным позициям — по карте Ozon, проверены вручную 30.07.2026, ссылки ведут на конкретные товары. Без карты Ozon выйдет дороже примерно на 5–10 процентов. Монтажные материалы и дополнения посчитаны оценочно и помечены на странице: они дают около 12 тысяч из общей суммы, и там разброс между продавцами самый большой.</p>
 
 <footer>
-  Расчёт сделан под конкретную схему участка: четыре камеры сейчас, регистратор с запасом до восьми.
-  Схема на странице условная, без масштаба и привязки к местности.
+  <p>Расчёт сделан под конкретную схему участка: четыре камеры сейчас, регистратор с запасом до восьми.
+  Схема на странице условная, без масштаба и привязки к местности.</p>
+  <p class="rev">Ревизия <b>30.07.2026</b> · коммит <a id="rev-link" href="https://github.com/zoologov/ip-cctv/commit/__COMMIT_SHA__" target="_blank" rel="noopener"><code id="rev-sha">__COMMIT_SHA__</code></a></p>
 </footer>
 
 </div>
@@ -731,6 +735,13 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
       path.setAttribute("stroke-width", "1.2");
       g.appendChild(path);
     });
+  }
+
+  // Хэш подставляет GitHub Actions при сборке. Локально плейсхолдер остаётся как есть
+  var sha = document.getElementById("rev-sha");
+  if (sha && sha.textContent.indexOf("__") === 0) {
+    var link = document.getElementById("rev-link");
+    link.parentNode.replaceChild(document.createTextNode("локальная копия"), link);
   }
 
   applyDisk();
