@@ -150,65 +150,100 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 <h2>Схема расстановки</h2>
 
 <figure>
-<svg id="plan" viewBox="0 0 800 620" role="img" aria-label="Схематичный план участка с четырьмя камерами и зонами обзора">
+<svg id="plan" viewBox="0 0 860 700" role="img" aria-label="Схематичный план участка: озеро сверху, домик охраны снизу, четыре камеры и их сектора обзора">
   <defs>
-    <pattern id="water" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="0" x2="0" y2="8" stroke="#3b6ea5" stroke-width="2" opacity="0.35"/>
+    <pattern id="water" width="9" height="9" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="#3b6ea5" stroke-width="2" opacity="0.32"/>
     </pattern>
   </defs>
-  <g id="cones"></g>
+
   <!-- Озеро -->
-  <path d="M35 195 Q20 260 45 315 Q90 345 140 320 Q175 275 160 215 Q110 180 35 195 Z" fill="url(#water)" stroke="#3b6ea5" stroke-width="1.4" opacity="0.9"/>
-  <text x="88" y="262" text-anchor="middle" font-size="13" fill="#7ea6d8">Озеро</text>
-  <!-- Первый дом -->
-  <rect x="150" y="70" width="150" height="86" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
-  <text x="225" y="118" text-anchor="middle" font-size="13" fill="#c3cad3">Первый дом</text>
+  <path d="M0 0 H860 V148 Q720 186 570 158 Q430 132 296 170 Q150 202 0 162 Z" fill="url(#water)" stroke="#3b6ea5" stroke-width="1.5"/>
+  <text x="706" y="74" text-anchor="middle" font-size="15" fill="#7ea6d8">Озеро</text>
+  <!-- Пирс -->
+  <rect x="421" y="80" width="15" height="80" fill="#3a424b" stroke="#5f6a79" stroke-width="1.2"/>
+  <rect x="401" y="72" width="56" height="14" rx="2" fill="#3a424b" stroke="#5f6a79" stroke-width="1.2"/>
+  <text x="466" y="106" text-anchor="start" font-size="12" fill="#9aa3af">Пирс</text>
+
+  <g id="cones"></g>
+
+  <!-- Баня, за кадром -->
+  <rect x="-8" y="196" width="78" height="56" rx="4" fill="#22262c" stroke="#5a6371" stroke-width="1.3" stroke-dasharray="5 4" opacity="0.75"/>
+  <text x="32" y="228" text-anchor="middle" font-size="12" fill="#98a1ad">Баня</text>
+  <text x="36" y="270" text-anchor="middle" font-size="10" fill="#6e7681">дальше по берегу</text>
   <!-- Второй дом -->
-  <rect x="515" y="78" width="155" height="86" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
-  <text x="592" y="126" text-anchor="middle" font-size="13" fill="#c3cad3">Второй дом</text>
-  <!-- Баня -->
-  <rect x="672" y="245" width="90" height="66" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
-  <text x="717" y="283" text-anchor="middle" font-size="13" fill="#c3cad3">Баня</text>
-  <!-- Дорожка к бане -->
-  <path d="M628 168 Q660 210 692 243" stroke="#5c6674" stroke-width="7" fill="none" stroke-dasharray="2 7" stroke-linecap="round"/>
+  <rect x="180" y="176" width="120" height="74" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="240" y="207" text-anchor="middle" font-size="12.5" fill="#c3cad3">Второй</text>
+  <text x="240" y="223" text-anchor="middle" font-size="12.5" fill="#c3cad3">дом</text>
   <!-- Беседка -->
-  <path d="M186 232 l28 -20 l28 20 l-10 34 h-36 Z" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
-  <text x="214" y="288" text-anchor="middle" font-size="12" fill="#c3cad3">Беседка,</text>
-  <text x="214" y="303" text-anchor="middle" font-size="12" fill="#c3cad3">зона отдыха</text>
+  <path d="M336 208 l34 -20 l34 20 v42 h-68 Z" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="370" y="232" text-anchor="middle" font-size="11.5" fill="#c3cad3">Беседка</text>
+  <!-- Проход к пирсу -->
+  <path d="M428 250 V162" stroke="#5c6674" stroke-width="8" fill="none" stroke-dasharray="2 7" stroke-linecap="round"/>
+  <text x="428" y="272" text-anchor="middle" font-size="10" fill="#6e7681">к пирсу</text>
+  <!-- Летняя кухня -->
+  <rect x="456" y="186" width="124" height="64" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="518" y="212" text-anchor="middle" font-size="12.5" fill="#c3cad3">Летняя</text>
+  <text x="518" y="228" text-anchor="middle" font-size="12.5" fill="#c3cad3">кухня</text>
+  <!-- Первый дом -->
+  <rect x="578" y="322" width="138" height="102" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="647" y="366" text-anchor="middle" font-size="13" fill="#c3cad3">Первый</text>
+  <text x="647" y="383" text-anchor="middle" font-size="13" fill="#c3cad3">дом</text>
+  <!-- Гараж -->
+  <rect x="112" y="308" width="120" height="76" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="172" y="352" text-anchor="middle" font-size="12.5" fill="#c3cad3">Гараж</text>
+  <!-- Проход к бане -->
+  <path d="M228 300 Q168 280 82 254" stroke="#5c6674" stroke-width="8" fill="none" stroke-dasharray="2 7" stroke-linecap="round"/>
+  <text x="176" y="298" text-anchor="middle" font-size="10" fill="#6e7681">проход к бане</text>
+  <!-- Теннисный корт -->
+  <rect x="40" y="430" width="150" height="102" rx="3" fill="#243a2c" stroke="#4f7a5c" stroke-width="1.4"/>
+  <line x1="40" y1="481" x2="190" y2="481" stroke="#4f7a5c" stroke-width="1" opacity="0.7"/>
+  <text x="115" y="468" text-anchor="middle" font-size="12" fill="#9dc4a9">Теннисный</text>
+  <text x="115" y="503" text-anchor="middle" font-size="12" fill="#9dc4a9">корт</text>
+  <!-- Дровенник -->
+  <rect x="176" y="545" width="92" height="51" rx="3" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="222" y="575" text-anchor="middle" font-size="11" fill="#c3cad3">Дровенник</text>
   <!-- Двор -->
-  <text x="400" y="230" text-anchor="middle" font-size="13" fill="#7c8592">Двор</text>
+  <text x="470" y="408" text-anchor="middle" font-size="13" fill="#7c8592">Двор</text>
+
   <!-- Сосны -->
-  <circle cx="336" cy="318" r="13" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.6"/>
-  <circle cx="470" cy="318" r="13" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.6"/>
-  <text x="330" y="356" text-anchor="end" font-size="12" fill="#8fb59a">Сосна · К3</text>
-  <text x="476" y="356" text-anchor="start" font-size="12" fill="#8fb59a">Сосна · К4</text>
-  <!-- Размер 35 м -->
-  <line x1="403" y1="331" x2="403" y2="470" stroke="#6e7681" stroke-width="1" stroke-dasharray="4 4"/>
-  <text x="411" y="405" font-size="12" fill="#8d96a3">35 м</text>
+  <circle cx="330" cy="440" r="13" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.6"/>
+  <circle cx="395" cy="440" r="13" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.6"/>
+  <text x="316" y="418" text-anchor="end" font-size="11.5" fill="#8fb59a">Сосна · К4</text>
+  <text x="409" y="418" text-anchor="start" font-size="11.5" fill="#8fb59a">Сосна · К3</text>
+  <!-- Размер 35 м от ворот до сосен -->
+  <line x1="362" y1="596" x2="362" y2="456" stroke="#6e7681" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="352" y="530" text-anchor="end" font-size="11.5" fill="#8d96a3">35 м</text>
+
   <!-- Забор -->
-  <line x1="0" y1="556" x2="316" y2="556" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
-  <line x1="488" y1="556" x2="800" y2="556" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <line x1="0" y1="600" x2="300" y2="600" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <line x1="425" y1="600" x2="860" y2="600" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <line x1="10" y1="600" x2="10" y2="258" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <line x1="850" y1="600" x2="850" y2="196" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
   <!-- Ворота -->
-  <line x1="240" y1="556" x2="316" y2="556" stroke="#8a939f" stroke-width="5" stroke-linecap="round"/>
-  <line x1="488" y1="556" x2="564" y2="556" stroke="#8a939f" stroke-width="5" stroke-linecap="round"/>
-  <text x="214" y="546" text-anchor="end" font-size="12" fill="#9aa3af">Ворота</text>
+  <line x1="300" y1="600" x2="361" y2="600" stroke="#8a939f" stroke-width="5.5" stroke-linecap="round"/>
+  <line x1="364" y1="600" x2="425" y2="600" stroke="#8a939f" stroke-width="5.5" stroke-linecap="round"/>
+  <text x="292" y="592" text-anchor="end" font-size="12" fill="#aab2bd">Ворота</text>
+
   <!-- Домик охраны -->
-  <rect x="316" y="478" width="172" height="78" rx="4" fill="#333a43" stroke="#5f6a79" stroke-width="1.6"/>
-  <text x="402" y="502" text-anchor="middle" font-size="12.5" fill="#dfe4ea">Домик охраны</text>
-  <text x="402" y="520" text-anchor="middle" font-size="11.5" fill="#9aa3af">регистратор, роутер, ИБП</text>
-  <text x="402" y="537" text-anchor="middle" font-size="11" fill="#9aa3af">К1 и К2 под коньком</text>
+  <rect x="440" y="522" width="170" height="76" rx="4" fill="#333a43" stroke="#5f6a79" stroke-width="1.6"/>
+  <text x="525" y="546" text-anchor="middle" font-size="12.5" fill="#dfe4ea">Домик охраны</text>
+  <text x="525" y="563" text-anchor="middle" font-size="11" fill="#9aa3af">регистратор, роутер, ИБП</text>
+  <text x="525" y="580" text-anchor="middle" font-size="11" fill="#9aa3af">К1 и К2 на левой стене</text>
+
   <!-- Дорога -->
-  <rect x="0" y="588" width="800" height="32" fill="#22262c"/>
-  <text x="400" y="608" text-anchor="middle" font-size="12" fill="#8d96a3">Дорога, подъезд</text>
+  <rect x="0" y="640" width="860" height="60" fill="#22262c"/>
+  <text x="430" y="676" text-anchor="middle" font-size="12.5" fill="#8d96a3">Дорога, подъезд</text>
+
   <!-- Метки камер -->
   <g font-size="11.5" font-weight="700" fill="#0f1114">
-    <circle cx="402" cy="560" r="11" fill="#5b93ff"/><text x="402" y="564" text-anchor="middle">К1</text>
-    <circle cx="402" cy="474" r="11" fill="#5b93ff"/><text x="402" y="478" text-anchor="middle">К2</text>
-    <circle cx="336" cy="318" r="11" fill="#4fb286"/><text x="336" y="322" text-anchor="middle">К3</text>
-    <circle cx="470" cy="318" r="11" fill="#4fb286"/><text x="470" y="322" text-anchor="middle">К4</text>
+    <circle cx="436" cy="578" r="11" fill="#5b93ff"/><text x="436" y="582" text-anchor="middle">К1</text>
+    <circle cx="436" cy="542" r="11" fill="#5b93ff"/><text x="436" y="546" text-anchor="middle">К2</text>
+    <circle cx="330" cy="440" r="11" fill="#4fb286"/><text x="330" y="444" text-anchor="middle">К4</text>
+    <circle cx="395" cy="440" r="11" fill="#4fb286"/><text x="395" y="444" text-anchor="middle">К3</text>
   </g>
 </svg>
-<figcaption>Схема условная, без масштаба и привязки к местности. Синие сектора — камеры 8 Мп с углом обзора 111°, зелёные — 4 Мп с углом 95°. Сектора показывают направление и ширину обзора; их длина на рисунке произвольная, реальная дальность подсветки — 30 метров.</figcaption>
+<figcaption>Схема условная, без масштаба и привязки к местности. Синие сектора — камеры 8 Мп с углом обзора 111°, зелёные — 4 Мп с углом 95°. Сектора показывают направление и ширину обзора; их длина на рисунке произвольная, реальная дальность подсветки — 30 метров. Баня показана пунктиром: она дальше по берегу и в обзор не попадает.</figcaption>
 </figure>
 
 <div class="tw">
@@ -218,26 +253,26 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 <tr>
   <td><b>К1</b></td>
   <td class="item-model">HFW2849SP-S-IL-0280B<br>8 Мп, 111°</td>
-  <td>Под коньком домика охраны, наружу, на подъезд</td>
-  <td>Подъезжающая машина спереди: номер и лицо водителя через лобовое</td>
+  <td>Левая стена домика охраны, обзор вниз-влево, наружу через ворота</td>
+  <td>Подъезжающая машина спереди: передний номер и лицо водителя через лобовое стекло</td>
 </tr>
 <tr>
   <td><b>К2</b></td>
   <td class="item-model">HFW2849SP-S-IL-0280B<br>8 Мп, 111°</td>
-  <td>Под коньком домика охраны, внутрь территории</td>
-  <td>Въехавшая машина сзади: задний номер, а также сама зона ворот изнутри</td>
+  <td>Левая стена домика охраны, выше, обзор влево-вверх, внутрь участка</td>
+  <td>Въехавшая машина сзади с задним номером, зона ворот изнутри и дровенник</td>
 </tr>
 <tr>
   <td><b>К3</b></td>
   <td class="item-model">HFW2449SP-S-IL-0280B<br>4 Мп, 95°</td>
-  <td>Сосна в 35 м от домика, обзор влево-вперёд</td>
-  <td>Двор, часть первого дома, беседка и зона отдыха у озера</td>
+  <td>Правая сосна, 35 м прямо над воротами, обзор вправо-вверх</td>
+  <td>Двор, беседка, проход к пирсу и сам пирс, летняя кухня, первый дом</td>
 </tr>
 <tr>
   <td><b>К4</b></td>
   <td class="item-model">HFW2449SP-S-IL-0280B<br>4 Мп, 95°</td>
-  <td>Сосна рядом, обзор вправо-вперёд, V-образно к К3</td>
-  <td>Второй дом и дорожка к бане</td>
+  <td>Левая сосна рядом, обзор влево-вверх, V-образно к К3</td>
+  <td>Гараж, второй дом, проход к бане между ними, край теннисного корта</td>
 </tr>
 </tbody>
 </table>
@@ -249,7 +284,7 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 <table>
 <thead><tr><th>Задача</th><th>К1 и К2, 8 Мп над воротами</th><th>К3 и К4, 4 Мп на соснах</th></tr></thead>
 <tbody>
-<tr><td>Прочитать автомобильный номер</td><td>Уверенно до 10 м, с натяжкой до 12 м</td><td>До 8 м, но в их секторах машин нет</td></tr>
+<tr><td>Прочитать автомобильный номер</td><td>Уверенно до 10 м, с натяжкой до 12 м</td><td>До 8 м — из их секторов это актуально только у гаража</td></tr>
 <tr><td>Опознать незнакомое лицо</td><td>До 3–4 м, то есть у самих ворот</td><td>До 3 м</td></tr>
 <tr><td>Узнать знакомого человека по фигуре и одежде</td><td>До 20–25 м</td><td>До 18–20 м</td></tr>
 <tr><td>Зафиксировать факт и направление движения</td><td>Вся зона сектора</td><td>Вся зона сектора, включая беседку и дорожки</td></tr>
@@ -258,8 +293,24 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 </div>
 <div class="note">
 <strong>Практический вывод</strong>
-<p>К1 закрывает главную задачу — номер подъезжающей машины — с запасом, потому что машина останавливается перед воротами в пяти-восьми метрах от камеры. Камеры на соснах работают как обзорные: они покажут, что кто-то шёл от второго дома к бане в 23:40, но не дадут опознать незнакомца у беседки. Если опознание в дальних зонах важно, туда позже добавляется отдельная камера с узким объективом — порты на регистраторе для этого есть.</p>
+<p>К1 закрывает главную задачу — номер подъезжающей машины — с запасом, потому что машина останавливается перед воротами в пяти-восьми метрах от камеры. Камеры на соснах работают как обзорные: они покажут, что кто-то шёл от второго дома в сторону бани в 23:40, но не дадут опознать незнакомца у беседки. Если опознание в дальних зонах важно, туда позже добавляется отдельная камера с узким объективом — свободные порты на регистраторе для этого есть.</p>
 </div>
+
+<h2>Что остаётся без обзора</h2>
+<p>Четыре камеры закрывают въезд, двор и линию берега от второго дома до летней кухни. Честно про остальное — вот куда обзор не достаёт, чтобы это не выяснилось после монтажа.</p>
+<div class="tw">
+<table>
+<thead><tr><th>Зона</th><th>Ситуация</th><th>Чем закрывается позже</th></tr></thead>
+<tbody>
+<tr><td>Баня</td><td>Стоит дальше по берегу, за пределами секторов. Виден только проход к ней между гаражом и вторым домом</td><td>Отдельная камера у бани — уже в планах</td></tr>
+<tr><td>Теннисный корт</td><td>В сектор К4 попадает только ближний угол, основная площадка вне обзора</td><td>Камера на том же дереве, что К4, с разворотом влево-вниз</td></tr>
+<tr><td>Правая часть участка за первым домом</td><td>Сектор К3 упирается в первый дом, всё правее и за ним не просматривается</td><td>Камера на первом доме, обзор вправо к забору</td></tr>
+<tr><td>Берег правее летней кухни</td><td>Дальний край сектора К3, детализация там уже низкая</td><td>Та же камера на первом доме, развёрнутая к воде</td></tr>
+<tr><td>Дальняя сторона второго дома</td><td>К4 видит фасад, обращённый к соснам, обратная сторона в тени</td><td>Камера на самом втором доме</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small">Пять зон закрываются четырьмя камерами: одна на первом доме берёт сразу и правую часть участка, и берег за летней кухней. Это ровно те четыре канала, что остаются свободными на регистраторе, так что при расширении докупаются только камеры и кабель — но свободных портов после этого не останется.</p>
 
 <h2>Список для заказа</h2>
 <p class="small">Отмечайте позиции галочками по мере заказа — отметки сохраняются в браузере. Ёмкость диска можно переключить, суммы пересчитаются.</p>
@@ -457,8 +508,8 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
   <p>Камера К1 смотрит навстречу подъезжающей машине, а значит ночью — прямо в фары. По умолчанию автоэкспозиция подстроится под яркое пятно, и номер превратится в белую засветку. В настройках камеры нужно включить HLC, подавление засветки от источников света, и WDR. Обе камеры это умеют, но из коробки функция выключена.</p>
 </div>
 <div class="card">
-  <h3>Две камеры под одним коньком</h3>
-  <p>К1 и К2 висят в одной точке и смотрят в противоположные стороны, поэтому не мешают друг другу. Но следите, чтобы инфракрасная подсветка не била в близкую стену, свес крыши или столб ворот в двух-трёх метрах: отражение засветит весь кадр. Если такое есть, камеру отводят чуть в сторону или уменьшают мощность подсветки.</p>
+  <h3>Две камеры на одной стене</h3>
+  <p>К1 и К2 висят на левой стене домика охраны и разведены по направлениям: одна смотрит вниз-влево на подъезд, вторая влево-вверх внутрь участка. Разнесите их по высоте и следите, чтобы подсветка не била в стену, свес крыши или столб ворот в двух-трёх метрах: отражение засветит весь кадр. Если так выходит, камеру отводят в сторону или снижают мощность подсветки.</p>
 </div>
 <div class="card">
   <h3>Крепление на сосны</h3>
@@ -600,10 +651,10 @@ footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
 
   // Сектора обзора на схеме
   var CONES = [
-    { x: 402, y: 560, bearing: 180, fov: 111, r: 60,  fill: "#5b93ff" },
-    { x: 402, y: 474, bearing: 0,   fov: 111, r: 150, fill: "#5b93ff" },
-    { x: 336, y: 318, bearing: 318, fov: 95,  r: 268, fill: "#4fb286" },
-    { x: 470, y: 318, bearing: 42,  fov: 95,  r: 268, fill: "#4fb286" }
+    { x: 436, y: 578, bearing: 225, fov: 111, r: 115, fill: "#5b93ff" }, // К1 — наружу, на подъезд
+    { x: 436, y: 542, bearing: 300, fov: 111, r: 230, fill: "#5b93ff" }, // К2 — внутрь, на въехавшую машину
+    { x: 330, y: 440, bearing: 320, fov: 95,  r: 300, fill: "#4fb286" }, // К4 — влево-вверх
+    { x: 395, y: 440, bearing: 34,  fov: 95,  r: 330, fill: "#4fb286" }  // К3 — вправо-вверх
   ];
 
   var g = document.getElementById("cones");
