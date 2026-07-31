@@ -140,7 +140,7 @@ footer p:last-child { margin-bottom: 0; }
 <div class="wrap">
 
 <h1>Видеонаблюдение на участке</h1>
-<p class="lead">Четыре камеры с питанием по одному кабелю, круглосуточная запись на локальный диск в домике охраны, удалённый просмотр с телефона через 4G. Уличные компоненты рассчитаны на морозы до −40 °C.</p>
+<p class="lead">Четыре камеры с питанием по одному кабелю, круглосуточная запись в домике охраны с зеркалом на два диска, удалённый просмотр с телефона через 4G. Уличные компоненты рассчитаны на морозы до −40 °C.</p>
 <div class="meta">
   <span>Расчёт под конкретную схему объекта</span>
   <span>Ревизия 30.07.2026</span>
@@ -151,7 +151,7 @@ footer p:last-child { margin-bottom: 0; }
   <div class="stat accent"><b id="s-base">—</b><span>Базовый комплект</span></div>
   <div class="stat"><b id="s-full">—</b><span>Со всеми дополнениями</span></div>
   <div class="stat"><b id="s-days">—</b><span id="s-days-label">Глубина архива</span></div>
-  <div class="stat"><b>24 из 72 Вт</b><span>Загрузка PoE регистратора</span></div>
+  <div class="stat"><b>24 из 130 Вт</b><span>Загрузка PoE регистратора</span></div>
 </div>
 
 <h2>Схема расстановки</h2>
@@ -347,14 +347,48 @@ footer p:last-child { margin-bottom: 0; }
 <p>Натянутый на высоте трос вдоль аллеи заметно повышает риск наводки при грозе, а подвешенная к нему кабельная линия уходит прямо в регистратор. При воздушной трассе грозозащита на линиях К3 и К4 перестаёт быть опциональной — она в списке монтажных материалов, а не в дополнениях. Сам трос заземляется у опоры со стороны домика охраны, одним концом: заземление с двух сторон создаёт паразитную петлю.</p>
 </div>
 
+<h2>Защита архива от потери</h2>
+<p>Архив защищён на двух уровнях, и это сознательно разные уровни: они закрывают разные аварии. Внутри регистратора запись дублируется на второй диск, а самые важные камеры дополнительно пишут копию сами в себя, на карту памяти.</p>
+<p>Первый уровень — режим резервного диска. Регистратор пишет один и тот же поток одновременно на рабочий и на резервный диск, и если рабочий умирает, запись целиком остаётся на резервном. По смыслу это RAID 1, но реализовано прошивкой: в меню это «Резервный диск» в разделе Storage, плюс галочка «Резервирование» в расписании записи. Функция требует минимум двух отсеков, поэтому регистратор в списке двухдисковый — на односекционном её включить нельзя ни при какой прошивке.</p>
+<div class="note warn">
+<strong>Зеркало не увеличивает архив</strong>
+<p>Два диска по 4 ТБ дают 4 ТБ архива, а не 8: на втором лежит та же самая запись. Поэтому ёмкость выбирается так, будто диск один, а платить приходится за два. Ещё одна особенность: резервный диск нельзя листать напрямую — чтобы достать с него записи, его переключают в режим «только чтение». И на резервный диск попадает видео, но не журнал событий, так что при отказе рабочего диска записи сохранятся, а список тревог по ним — нет.</p>
+</div>
+<div class="tw">
+<table>
+<thead><tr><th>Зеркало</th><th class="num">4 камеры</th><th class="num">8 камер</th><th class="num">Цена пары</th><th class="num">За ТБ архива</th></tr></thead>
+<tbody id="disk-table"></tbody>
+</table>
+</div>
+<p>Четвёрка даёт после расширения до восьми камер около двух недель архива. Для участка, куда приезжают не каждую неделю, это мало: событие успеет затереться раньше, чем кто-то откроет запись. Разумный минимум — 6 ТБ, а если восемь камер решённый вопрос, то 10 ТБ: доплата за ёмкость всё равно дешевле, чем менять пару дисков через год.</p>
+<p>Второй уровень — карты памяти в камерах. Зеркало закрывает ровно один сценарий, смерть диска, и совершенно бессильно против остальных: если регистратор украдут, зальёт водой или он сгорит от наводки, оба диска уедут вместе с ним. На участке без постоянного присутствия людей это более вероятный способ остаться без записи, чем отказ винчестера. Карта в камере лежит физически в другом месте, на высоте, в герметичном корпусе, и переживает потерю регистратора. Обе камеры у ворот поддерживают microSD до 256 ГБ, и там же включается ANR: при обрыве линии камера пишет в карту, а после восстановления связи сама дозаливает пропущенное в архив.</p>
+<div class="tw">
+<table>
+<thead><tr><th>Авария</th><th>Зеркало дисков</th><th>Карта в камере</th></tr></thead>
+<tbody>
+<tr><td>Отказ рабочего диска</td><td>Архив сохранён полностью</td><td>Не требуется</td></tr>
+<tr><td>Отказ обоих дисков сразу</td><td>Архив потерян</td><td>Последние дни сохранены</td></tr>
+<tr><td>Кража или поломка регистратора</td><td>Архив потерян</td><td>Последние дни сохранены</td></tr>
+<tr><td>Обрыв кабеля или пропажа PoE</td><td>Запись прерывается</td><td>Пишется в карту, потом дозаливается</td></tr>
+<tr><td>Пожар или наводка от грозы</td><td>Архив потерян</td><td>Зависит от того, что уцелело</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note ok">
+<strong>Что обязательно включить в настройках</strong>
+<p>Само железо ничего не гарантирует, пока не включены три вещи. Назначить второй диск резервным и поставить галочку резервирования в расписании — без неё второй диск просто добавится к общей ёмкости, и зеркала не будет. Включить оповещение о состоянии диска с push в DMSS: это бесплатно и даёт шанс заменить диск до отказа, а не после. Включить ANR на камерах с картами. Проверить результат просто: вынуть на минуту кабель одной камеры и убедиться, что после возврата дыра в архиве закрылась.</p>
+</div>
+<p class="small">Полную копию архива за пределы участка вывезти не получится: непрерывный поток от четырёх камер — это около 12 Мбит/с и порядка 4 ТБ в месяц, чего 4G не выдержит ни по скорости отдачи, ни по трафику. Наружу реально отправлять только тревожные клипы и кадры, и это стоит настроить отдельно, когда система заработает.</p>
+
 <h2>Список для заказа</h2>
 <p class="small">Отмечай позиции галочками по мере заказа — отметки сохраняются в браузере. Ёмкость диска можно переключить, суммы пересчитаются. Позиции со ссылкой на Ozon — цены по карте, проверены вручную; остальные помечены как оценочные.</p>
 
 <div class="group-head"><h2>Основное оборудование</h2><span class="group-sum" id="sum-core">—</span></div>
-<div class="disk" role="group" aria-label="Ёмкость жёсткого диска">
-  <button type="button" data-tb="4" aria-pressed="true">Диск 4 ТБ</button>
-  <button type="button" data-tb="6" aria-pressed="false">Диск 6 ТБ</button>
-  <button type="button" data-tb="10" aria-pressed="false">Диск 10 ТБ</button>
+<p class="small">Тумблер ниже выбирает ёмкость <b>одного</b> диска в зеркале. Покупаются два одинаковых, архив равен ёмкости одного.</p>
+<div class="disk" role="group" aria-label="Ёмкость одного диска в зеркале">
+  <button type="button" data-tb="4" aria-pressed="false">2 × 4 ТБ</button>
+  <button type="button" data-tb="6" aria-pressed="true">2 × 6 ТБ</button>
+  <button type="button" data-tb="10" aria-pressed="false">2 × 10 ТБ</button>
 </div>
 <div class="tw">
 <table>
@@ -380,26 +414,34 @@ footer p:last-child { margin-bottom: 0; }
   </td>
   <td class="num">2</td><td class="num">7 218 ₽</td><td class="num sum">14 436 ₽</td>
 </tr>
-<tr data-id="nvr" data-group="core" data-qty="1" data-price="11172">
+<tr data-id="nvr" data-group="core" data-qty="1" data-price="35000">
   <td><input type="checkbox"></td>
   <td>
-    <div class="item-name">Видеорегистратор с 8 портами PoE</div>
-    <div class="item-model">Dahua DHI-NVR2108HS-8P-4KS3</div>
-    <div class="item-spec">8 каналов, 8 портов PoE с бюджетом 72 Вт, вход 144 Мбит/с, один диск до 20 ТБ, H.265+, HDMI 4K. Берётся 8-канальный сразу — каналы прошивкой не наращиваются</div>
-    <a class="buy" href="https://ozon.ru/t/j7w4hmm" target="_blank" rel="noopener">Ozon</a>
+    <div class="item-name">Видеорегистратор на два диска с 8 портами PoE</div>
+    <div class="item-model">Dahua DHI-NVR5208-8P-EI</div>
+    <div class="item-spec">8 каналов, <b>два отсека под диск</b> до 20 ТБ каждый, 8 портов PoE с бюджетом 130 Вт и ePoE, вход до 200 Мбит/с с ИИ. Именно два отсека дают режим «Резервный диск» — программное зеркало записи. Однодисковый NVR2108HS и двухдисковый Lite NVR2208 эту функцию не дают: у Lite режим HDD только Single. Не путать с аппаратным RAID: он есть у серий на 4–8 дисков и здесь не нужен</div>
   </td>
-  <td class="num">1</td><td class="num">11 172 ₽</td><td class="num sum">11 172 ₽</td>
+  <td class="num">1</td><td class="num">35 000 ₽</td><td class="num sum">35 000 ₽</td>
 </tr>
-<tr data-id="hdd" data-group="core" data-qty="1" data-price="15729">
+<tr data-id="hdd" data-group="core" data-qty="2" data-price="21000">
   <td><input type="checkbox"></td>
   <td>
-    <div class="item-name">Жёсткий диск для видеонаблюдения</div>
-    <div class="item-model" id="hdd-model">Seagate SkyHawk ST4000VX016, 4 ТБ</div>
-    <div class="item-spec">SATA 3.5 дюйма, 5400 об/мин, серия для круглосуточной записи. Аналог — WD Purple той же ёмкости. Обычный десктопный диск здесь живёт год-полтора</div>
-    <a class="buy" id="hdd-link" href="https://ozon.ru/t/sXZoXtk" target="_blank" rel="noopener">Ozon</a>
-    <div class="item-spec" id="hdd-hint">Цена проверена по карте Ozon</div>
+    <div class="item-name">Два жёстких диска в зеркало</div>
+    <div class="item-model" id="hdd-model">Seagate SkyHawk ST6000VX009, 6 ТБ</div>
+    <div class="item-spec">SATA 3.5 дюйма, серия для круглосуточной записи. Аналог — WD Purple той же ёмкости. Обычный десктопный диск здесь живёт год-полтора. Диски берутся одинаковые: второй работает резервным и пишет ту же запись, поэтому глубина архива равна ёмкости <b>одного</b> диска, а не двух</div>
+    <a class="buy" id="hdd-link" href="#" target="_blank" rel="noopener" style="display:none">Ozon</a>
+    <div class="item-spec" id="hdd-hint">Цена оценочная, конкретный товар не сверен. За терабайт шестёрка обычно выходит заметно выгоднее четвёрки</div>
   </td>
-  <td class="num">1</td><td class="num" id="hdd-price">15 729 ₽</td><td class="num sum">15 729 ₽</td>
+  <td class="num">2</td><td class="num" id="hdd-price">21 000 ₽</td><td class="num sum">42 000 ₽</td>
+</tr>
+<tr data-id="sdcard" data-group="core" data-qty="2" data-price="3000">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Карты microSD в камеры у ворот</div>
+    <div class="item-model">Высокоресурсная microSD 256 ГБ: Dahua TF-P100, Samsung PRO Endurance или SanDisk Max Endurance</div>
+    <div class="item-spec">Вторая копия записи внутри камеры, отдельно от регистратора: единственное, что уцелеет при его краже. Ставятся в К1 и К2, с которых берут номера и лица. На 256 ГБ у камеры 8 Мп укладывается около шести суток непрерывной записи и в разы больше, если писать только события. Карта нужна высокоресурсная, обычная от фотоаппарата в режиме 24/7 умирает за несколько месяцев</div>
+  </td>
+  <td class="num">2</td><td class="num">3 000 ₽</td><td class="num sum">6 000 ₽</td>
 </tr>
 <tr data-id="router" data-group="core" data-qty="1" data-price="6585">
   <td><input type="checkbox"></td>
@@ -484,7 +526,7 @@ footer p:last-child { margin-bottom: 0; }
   </td>
   <td class="num">1</td><td class="num">400 ₽</td><td class="num sum">400 ₽</td>
 </tr>
-<tr data-id="misc" data-group="mat" data-qty="1" data-price="800">
+<tr data-id="misc" data-group="mat" data-qty="1" data-price="1200">
   <td><input type="checkbox"></td>
   <td>
     <div class="item-name">Крепёж и мелочи</div>
@@ -583,6 +625,8 @@ footer p:last-child { margin-bottom: 0; }
 <thead><tr><th>Что</th><th>Как</th><th>Зачем</th></tr></thead>
 <tbody>
 <tr><td>Кодек и частота кадров</td><td>H.265+, 15 кадров в секунду вместо 20–25</td><td>На картинке почти не видно, а архив растягивается примерно вдвое</td></tr>
+<tr><td>Зеркало дисков</td><td>Storage → Disk Manager: второй диск → «Резервный»; Schedule → Record → галочка «Резервирование» на все каналы</td><td>Без этих двух шагов второй диск просто добавится к общей ёмкости, и зеркала не будет</td></tr>
+<tr><td>Карты и ANR на К1 и К2</td><td>В камере: запись на SD + ANR (Auto Network Resume)</td><td>При обрыве линии камера пишет в карту и сама дозаливает пропуски после восстановления связи</td></tr>
 <tr><td>HLC и WDR на К1</td><td>Включить в настройках экспозиции камеры</td><td>Иначе фары ночью выбивают номер в белое пятно</td></tr>
 <tr><td>Тревоги</td><td>Только SMD Plus и охрана периметра, обычную детекцию движения выключить</td><td>Иначе телефон завалит тревогами от снега, дождя и качающихся сосен</td></tr>
 <tr><td>Тёплый белый свет</td><td>Расписание или отключение на камерах, смотрящих в сторону домов и соседей</td><td>Свет бьёт на 30 м, привлекает насекомых и светит в окна</td></tr>
@@ -601,12 +645,12 @@ footer p:last-child { margin-bottom: 0; }
   <li><b>Предпоследняя цифра в модели камеры: 49 и 89, а не 41 и 81.</b> HFW2841 и HFW2849 выглядят одинаково и имеют одно разрешение, но у первой объектив F2.0 и только инфракрасная подсветка, без цветной ночной съёмки. Разница в цене небольшая, в ночной картинке — принципиальная.</li>
   <li><b>Буквы SP, а не SN.</b> SP — версия на 25 кадров для наших сетей, SN — на 30 кадров для Америки и Азии. Вторая тоже работает, но иногда даёт неровный поток и сложности с прошивкой.</li>
   <li><b>Кабель только медный и только в полиэтилене.</b> Дешёвый CCA — это алюминий с медным покрытием: PoE на пятидесяти метрах через него может не дотянуть, а ПВХ-оболочка на морозе трескается, и линия начинает сыпаться после первой зимы.</li>
-  <li><b>Регистратор с литерой P.</b> В <code>NVR2108HS-8P-4KS3</code> важна каждая часть: 08 — восемь каналов, 8P — восемь портов PoE. Есть похожая модель <code>NVR2108HS-4KS3</code> без P: тоже восемь каналов, но вообще без PoE, и камеры от неё питаться не будут.</li>
+  <li><b>Регистратор именно на два диска с режимом «Резервный диск».</b> Нужна модель <code>NVR5208-8P-EI</code> или эквивалент серии NVR5xxx с двумя SATA. Однодисковый <code>NVR2108HS</code> зеркала не даст никогда. Двухдисковый Lite <code>NVR2208</code> тоже не подходит: у него режим HDD только Single. На этикетке должны быть и <code>8P</code> (восемь портов PoE), и два отсека.</li>
 </ul>
-<p class="tiny">Цены по шести основным позициям — по карте Ozon, проверены вручную 30.07.2026, ссылки ведут на конкретные товары. Без карты Ozon выйдет дороже примерно на 5–10 процентов. Монтажные материалы и дополнения посчитаны оценочно и помечены на странице: они дают около 12 тысяч из общей суммы, и там разброс между продавцами самый большой.</p>
+<p class="tiny">Цены по камерам, диску 4 ТБ, роутеру и кабелю — по карте Ozon, проверены вручную 30.07.2026, ссылки ведут на конкретные товары. Регистратор, карты памяти, диски 6 и 10 ТБ и монтажные материалы посчитаны оценочно и помечены на странице. Без карты Ozon выйдет дороже примерно на 5–10 процентов.</p>
 
 <footer>
-  <p>Расчёт сделан под конкретную схему участка: четыре камеры сейчас, регистратор с запасом до восьми.
+  <p>Расчёт сделан под конкретную схему участка: четыре камеры сейчас, регистратор с запасом до восьми и зеркалом на два диска.
   Схема на странице условная, без масштаба и привязки к местности.</p>
   <p class="rev">Ревизия <b>30.07.2026</b> · коммит <a id="rev-link" href="https://github.com/zoologov/ip-cctv/commit/__COMMIT_SHA__" target="_blank" rel="noopener"><code id="rev-sha">__COMMIT_SHA__</code></a></p>
 </footer>
@@ -620,15 +664,28 @@ footer p:last-child { margin-bottom: 0; }
           url: "https://ozon.ru/t/sXZoXtk",
           hint: "Цена проверена по карте Ozon" },
     6:  { price: 21000, model: "Seagate SkyHawk ST6000VX009, 6 ТБ",
-          hint: "Цена оценочная. Стоит проверить: за терабайт 6 ТБ обычно выходит заметно выгоднее, чем 4 ТБ" },
+          hint: "Цена оценочная, конкретный товар не сверен. За терабайт шестёрка обычно выходит заметно выгоднее четвёрки" },
     10: { price: 33000, model: "Seagate SkyHawk ST10000VE0008, 10 ТБ",
-          hint: "Цена оценочная. Модель на 7200 об/мин — греется и шумит сильнее, для домика охраны это нормально" }
+          hint: "Цена оценочная, конкретный товар не сверен. Модель на 7200 об/мин — греется и шумит сильнее, для домика охраны это нормально" }
   };
-  var GB_PER_DAY = 134;   // 2 камеры 8 Мп по 4 Мбит/с + 2 камеры 4 Мп по 2.2 Мбит/с, H.265+, 15 к/с
+  var GB_PER_DAY = 134;     // 2 камеры 8 Мп по 4 Мбит/с + 2 камеры 4 Мп по 2.2 Мбит/с, H.265+, 15 к/с
+  var GB_PER_DAY_8 = 230;   // то же плюс четыре камеры 4 Мп при расширении до восьми
   var STORE_KEY = "cctv.bought.v1";
-  var DISK_KEY = "cctv.disk.v2";
+  var DISK_KEY = "cctv.disk.v3";
 
   function fmt(n) { return n.toLocaleString("ru-RU") + " ₽"; }
+  function daysOf(tb, rate) { return Math.round(tb * 1000 / rate); }
+  function plural(n, one, few, many) {
+    var a = n % 100, b = n % 10;
+    if (a > 10 && a < 20) return many;
+    if (b === 1) return one;
+    if (b >= 2 && b <= 4) return few;
+    return many;
+  }
+  function daysText(tb, rate) {
+    var n = daysOf(tb, rate);
+    return n + " " + plural(n, "день", "дня", "дней");
+  }
 
   var rows = Array.prototype.slice.call(document.querySelectorAll("tr[data-id]"));
   var diskBtns = Array.prototype.slice.call(document.querySelectorAll(".disk button"));
@@ -645,7 +702,7 @@ footer p:last-child { margin-bottom: 0; }
   var bought = [];
   try { bought = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { bought = []; }
   var diskTb = parseInt(localStorage.getItem(DISK_KEY), 10);
-  if (!DISKS[diskTb]) diskTb = 4;
+  if (!DISKS[diskTb]) diskTb = 6;
 
   function applyDisk() {
     var d = DISKS[diskTb];
@@ -662,7 +719,9 @@ footer p:last-child { margin-bottom: 0; }
       link.style.display = "none";
     }
     diskBtns.forEach(function (b) {
-      b.setAttribute("aria-pressed", String(parseInt(b.dataset.tb, 10) === diskTb));
+      var tb = parseInt(b.dataset.tb, 10);
+      b.textContent = "2 × " + tb + " ТБ · " + daysOf(tb, GB_PER_DAY) + " дн.";
+      b.setAttribute("aria-pressed", String(tb === diskTb));
     });
   }
 
@@ -686,18 +745,18 @@ footer p:last-child { margin-bottom: 0; }
 
     var base = sums.core + sums.mat;
     var full = base + sums.opt;
-    var days = Math.round(diskTb * 1000 / GB_PER_DAY);
+    var archiveDays = daysOf(diskTb, GB_PER_DAY);
 
     document.getElementById("sum-core").textContent = fmt(sums.core);
     document.getElementById("sum-mat").textContent = fmt(sums.mat);
     document.getElementById("sum-opt").textContent = fmt(sums.opt);
     document.getElementById("s-base").textContent = fmt(base);
     document.getElementById("s-full").textContent = fmt(full);
-    document.getElementById("s-days").textContent = days + " дн.";
-    document.getElementById("s-days-label").textContent = "Архив 24/7 на диске " + diskTb + " ТБ";
+    document.getElementById("s-days").textContent = archiveDays + " дн.";
+    document.getElementById("s-days-label").textContent = "Архив 24/7, зеркало 2 × " + diskTb + " ТБ";
     document.getElementById("s-remaining").textContent = fmt(remaining);
     document.getElementById("s-breakdown").textContent =
-      "Запись около " + GB_PER_DAY + " ГБ в сутки · поток 12,4 из 144 Мбит/с";
+      "Запись около " + GB_PER_DAY + " ГБ в сутки на каждый диск · поток 12,4 из 200 Мбит/с";
   }
 
   rows.forEach(function (row) {
@@ -747,6 +806,30 @@ footer p:last-child { margin-bottom: 0; }
       path.setAttribute("stroke-opacity", "0.5");
       path.setAttribute("stroke-width", "1.2");
       g.appendChild(path);
+    });
+  }
+
+  // Таблица выбора диска строится из тех же констант, что и остальные расчёты
+  var diskTable = document.getElementById("disk-table");
+  if (diskTable) {
+    Object.keys(DISKS).sort(function (a, b) { return a - b; }).forEach(function (tb) {
+      var d = DISKS[tb];
+      var pair = d.price * 2;                        // зеркало: платим за два, архив как у одного
+      var tr = document.createElement("tr");
+      var cells = [
+        { html: "<b>2 × " + tb + " ТБ</b>" },
+        { html: daysText(tb, GB_PER_DAY), num: true },
+        { html: daysText(tb, GB_PER_DAY_8), num: true },
+        { html: d.url ? fmt(pair) : fmt(pair) + " <span class=\"tag\">оценка</span>", num: true },
+        { html: fmt(Math.round(pair / tb)), num: true }
+      ];
+      cells.forEach(function (c) {
+        var td = document.createElement("td");
+        if (c.num) td.className = "num";
+        td.innerHTML = c.html;
+        tr.appendChild(td);
+      });
+      diskTable.appendChild(tr);
     });
   }
 
