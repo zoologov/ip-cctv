@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Видеонаблюдение на участке — комплект и схема</title>
+<meta name="description" content="Комплект оборудования для видеонаблюдения на загородном участке: 4 камеры PoE, запись 24/7 на локальный диск, удалённый доступ через 4G.">
+<meta name="robots" content="noindex">
+<style>
+:root {
+  --bg: #0f1114;
+  --panel: #16191e;
+  --panel-2: #1b1f25;
+  --text: #e7e9ec;
+  --text-2: #9ba3ae;
+  --text-3: #6e7681;
+  --line: #262b33;
+  --accent: #5b93ff;
+  --warn: #d9a441;
+  --danger: #e06c5e;
+  --ok: #4fb286;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f7f8fa;
+    --panel: #ffffff;
+    --panel-2: #f1f3f6;
+    --text: #14171c;
+    --text-2: #55606d;
+    --text-3: #7d8794;
+    --line: #dfe3e9;
+    --accent: #2563eb;
+    --warn: #a86b12;
+    --danger: #b93f30;
+    --ok: #1f7a56;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.wrap { max-width: 940px; margin: 0 auto; padding: 40px 20px 80px; }
+h1 { font-size: 30px; line-height: 1.25; margin: 0 0 12px; letter-spacing: -0.02em; }
+h2 { font-size: 21px; line-height: 1.3; margin: 44px 0 14px; letter-spacing: -0.01em; }
+h3 { font-size: 16px; margin: 24px 0 8px; }
+p { margin: 0 0 14px; }
+.lead { color: var(--text-2); font-size: 17px; }
+.muted { color: var(--text-2); }
+.small { font-size: 14px; color: var(--text-2); }
+.tiny { font-size: 13px; color: var(--text-3); }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; background: var(--panel-2); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--accent); }
+
+.meta { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--text-3); margin-bottom: 28px; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 8px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.stat b { display: block; font-size: 21px; font-weight: 650; letter-spacing: -0.01em; }
+.stat span { display: block; font-size: 12.5px; color: var(--text-3); margin-top: 3px; line-height: 1.4; }
+.stat.accent b { color: var(--accent); }
+
+.note { border: 1px solid var(--line); border-left: 3px solid var(--text-3); background: var(--panel); border-radius: 8px; padding: 14px 16px; margin: 18px 0; }
+.note strong { display: block; margin-bottom: 5px; }
+.note.warn { border-left-color: var(--warn); }
+.note.danger { border-left-color: var(--danger); }
+.note.ok { border-left-color: var(--ok); }
+.note p:last-child { margin-bottom: 0; }
+
+figure { margin: 20px 0 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+figure svg { display: block; width: 100%; height: auto; }
+figcaption { font-size: 13px; color: var(--text-3); padding: 8px 4px 2px; }
+
+.tw { overflow-x: auto; margin: 14px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 520px; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-3); font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+
+.item-name { font-weight: 600; }
+.item-model { font-size: 13px; color: var(--text-2); }
+.item-spec { font-size: 13px; color: var(--text-3); margin-top: 3px; }
+tr.done .item-name, tr.done .item-model { text-decoration: line-through; }
+tr.done td { opacity: 0.55; }
+input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; }
+
+.group-head { display: flex; align-items: baseline; gap: 12px; margin: 36px 0 0; }
+.group-head h2 { margin: 0; flex: 1; }
+.group-sum { font-size: 14px; color: var(--text-2); white-space: nowrap; }
+
+.disk { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+.disk button {
+  font: inherit; font-size: 14px; cursor: pointer;
+  background: var(--panel); color: var(--text);
+  border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px;
+}
+.disk button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.totals { display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin: 20px 0 0; }
+.totals .grow { flex: 1; min-width: 180px; }
+.totals b { font-size: 22px; color: var(--accent); letter-spacing: -0.01em; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+.card h3 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-3); }
+.card p { font-size: 14.5px; }
+.card p:last-child { margin-bottom: 0; }
+
+ul { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 7px; }
+
+footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--text-3); }
+
+@media (max-width: 720px) {
+  .wrap { padding: 28px 16px 60px; }
+  h1 { font-size: 25px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .cards { grid-template-columns: 1fr; }
+}
+@media print {
+  :root { --bg: #fff; --panel: #fff; --panel-2: #fff; --text: #000; --text-2: #333; --text-3: #555; --line: #bbb; --accent: #000; }
+  .disk, input[type="checkbox"] { display: none; }
+  .wrap { max-width: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Видеонаблюдение на участке</h1>
+<p class="lead">Четыре камеры с питанием по одному кабелю, круглосуточная запись на локальный диск в домике охраны, удалённый просмотр с телефона через 4G. Уличные компоненты рассчитаны на морозы до −40 °C.</p>
+<div class="meta">
+  <span>Расчёт под конкретную схему объекта</span>
+  <span>Июль 2026</span>
+  <span>Цены ориентировочные, Ozon</span>
+</div>
+
+<div class="stats">
+  <div class="stat accent"><b id="s-base">—</b><span>Базовый комплект</span></div>
+  <div class="stat"><b id="s-full">—</b><span>Со всеми дополнениями</span></div>
+  <div class="stat"><b id="s-days">—</b><span id="s-days-label">Глубина архива</span></div>
+  <div class="stat"><b>24 из 72 Вт</b><span>Загрузка PoE регистратора</span></div>
+</div>
+
+<h2>Схема расстановки</h2>
+
+<figure>
+<svg id="plan" viewBox="0 0 800 620" role="img" aria-label="Схематичный план участка с четырьмя камерами и зонами обзора">
+  <defs>
+    <pattern id="water" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#3b6ea5" stroke-width="2" opacity="0.35"/>
+    </pattern>
+  </defs>
+  <g id="cones"></g>
+  <!-- Озеро -->
+  <path d="M35 195 Q20 260 45 315 Q90 345 140 320 Q175 275 160 215 Q110 180 35 195 Z" fill="url(#water)" stroke="#3b6ea5" stroke-width="1.4" opacity="0.9"/>
+  <text x="88" y="262" text-anchor="middle" font-size="13" fill="#7ea6d8">Озеро</text>
+  <!-- Первый дом -->
+  <rect x="150" y="70" width="150" height="86" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="225" y="118" text-anchor="middle" font-size="13" fill="#c3cad3">Первый дом</text>
+  <!-- Второй дом -->
+  <rect x="515" y="78" width="155" height="86" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="592" y="126" text-anchor="middle" font-size="13" fill="#c3cad3">Второй дом</text>
+  <!-- Баня -->
+  <rect x="672" y="245" width="90" height="66" rx="4" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="717" y="283" text-anchor="middle" font-size="13" fill="#c3cad3">Баня</text>
+  <!-- Дорожка к бане -->
+  <path d="M628 168 Q660 210 692 243" stroke="#5c6674" stroke-width="7" fill="none" stroke-dasharray="2 7" stroke-linecap="round"/>
+  <!-- Беседка -->
+  <path d="M186 232 l28 -20 l28 20 l-10 34 h-36 Z" fill="#2b3138" stroke="#495260" stroke-width="1.4"/>
+  <text x="214" y="288" text-anchor="middle" font-size="12" fill="#c3cad3">Беседка,</text>
+  <text x="214" y="303" text-anchor="middle" font-size="12" fill="#c3cad3">зона отдыха</text>
+  <!-- Двор -->
+  <text x="400" y="230" text-anchor="middle" font-size="13" fill="#7c8592">Двор</text>
+  <!-- Сосны -->
+  <circle cx="336" cy="318" r="13" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.6"/>
+  <circle cx="470" cy="318" r="13" fill="#2f4a37" stroke="#5c8a67" stroke-width="1.6"/>
+  <text x="330" y="356" text-anchor="end" font-size="12" fill="#8fb59a">Сосна · К3</text>
+  <text x="476" y="356" text-anchor="start" font-size="12" fill="#8fb59a">Сосна · К4</text>
+  <!-- Размер 35 м -->
+  <line x1="403" y1="331" x2="403" y2="470" stroke="#6e7681" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="411" y="405" font-size="12" fill="#8d96a3">35 м</text>
+  <!-- Забор -->
+  <line x1="0" y1="556" x2="316" y2="556" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <line x1="488" y1="556" x2="800" y2="556" stroke="#4a525d" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <!-- Ворота -->
+  <line x1="240" y1="556" x2="316" y2="556" stroke="#8a939f" stroke-width="5" stroke-linecap="round"/>
+  <line x1="488" y1="556" x2="564" y2="556" stroke="#8a939f" stroke-width="5" stroke-linecap="round"/>
+  <text x="214" y="546" text-anchor="end" font-size="12" fill="#9aa3af">Ворота</text>
+  <!-- Домик охраны -->
+  <rect x="316" y="478" width="172" height="78" rx="4" fill="#333a43" stroke="#5f6a79" stroke-width="1.6"/>
+  <text x="402" y="502" text-anchor="middle" font-size="12.5" fill="#dfe4ea">Домик охраны</text>
+  <text x="402" y="520" text-anchor="middle" font-size="11.5" fill="#9aa3af">регистратор, роутер, ИБП</text>
+  <text x="402" y="537" text-anchor="middle" font-size="11" fill="#9aa3af">К1 и К2 под коньком</text>
+  <!-- Дорога -->
+  <rect x="0" y="588" width="800" height="32" fill="#22262c"/>
+  <text x="400" y="608" text-anchor="middle" font-size="12" fill="#8d96a3">Дорога, подъезд</text>
+  <!-- Метки камер -->
+  <g font-size="11.5" font-weight="700" fill="#0f1114">
+    <circle cx="402" cy="560" r="11" fill="#5b93ff"/><text x="402" y="564" text-anchor="middle">К1</text>
+    <circle cx="402" cy="474" r="11" fill="#5b93ff"/><text x="402" y="478" text-anchor="middle">К2</text>
+    <circle cx="336" cy="318" r="11" fill="#4fb286"/><text x="336" y="322" text-anchor="middle">К3</text>
+    <circle cx="470" cy="318" r="11" fill="#4fb286"/><text x="470" y="322" text-anchor="middle">К4</text>
+  </g>
+</svg>
+<figcaption>Схема условная, без масштаба и привязки к местности. Синие сектора — камеры 8 Мп с углом обзора 111°, зелёные — 4 Мп с углом 95°. Сектора показывают направление и ширину обзора; их длина на рисунке произвольная, реальная дальность подсветки — 30 метров.</figcaption>
+</figure>
+
+<div class="tw">
+<table>
+<thead><tr><th>Камера</th><th>Модель</th><th>Точка и направление</th><th>Что закрывает</th></tr></thead>
+<tbody>
+<tr>
+  <td><b>К1</b></td>
+  <td class="item-model">HFW2849SP-S-IL-0280B<br>8 Мп, 111°</td>
+  <td>Под коньком домика охраны, наружу, на подъезд</td>
+  <td>Подъезжающая машина спереди: номер и лицо водителя через лобовое</td>
+</tr>
+<tr>
+  <td><b>К2</b></td>
+  <td class="item-model">HFW2849SP-S-IL-0280B<br>8 Мп, 111°</td>
+  <td>Под коньком домика охраны, внутрь территории</td>
+  <td>Въехавшая машина сзади: задний номер, а также сама зона ворот изнутри</td>
+</tr>
+<tr>
+  <td><b>К3</b></td>
+  <td class="item-model">HFW2449SP-S-IL-0280B<br>4 Мп, 95°</td>
+  <td>Сосна в 35 м от домика, обзор влево-вперёд</td>
+  <td>Двор, часть первого дома, беседка и зона отдыха у озера</td>
+</tr>
+<tr>
+  <td><b>К4</b></td>
+  <td class="item-model">HFW2449SP-S-IL-0280B<br>4 Мп, 95°</td>
+  <td>Сосна рядом, обзор вправо-вперёд, V-образно к К3</td>
+  <td>Второй дом и дорожка к бане</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2>Что реально будет различимо</h2>
+<p>Широкий угол даёт хороший обзор, но детализация падает с расстоянием, и это стоит понимать заранее, чтобы потом не расстраиваться. Цифры ниже посчитаны из плотности пикселей: у камер 8 Мп это примерно 35 пикселей на градус обзора, у 4 Мп — около 28.</p>
+<div class="tw">
+<table>
+<thead><tr><th>Задача</th><th>К1 и К2, 8 Мп над воротами</th><th>К3 и К4, 4 Мп на соснах</th></tr></thead>
+<tbody>
+<tr><td>Прочитать автомобильный номер</td><td>Уверенно до 10 м, с натяжкой до 12 м</td><td>До 8 м, но в их секторах машин нет</td></tr>
+<tr><td>Опознать незнакомое лицо</td><td>До 3–4 м, то есть у самих ворот</td><td>До 3 м</td></tr>
+<tr><td>Узнать знакомого человека по фигуре и одежде</td><td>До 20–25 м</td><td>До 18–20 м</td></tr>
+<tr><td>Зафиксировать факт и направление движения</td><td>Вся зона сектора</td><td>Вся зона сектора, включая беседку и дорожки</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note">
+<strong>Практический вывод</strong>
+<p>К1 закрывает главную задачу — номер подъезжающей машины — с запасом, потому что машина останавливается перед воротами в пяти-восьми метрах от камеры. Камеры на соснах работают как обзорные: они покажут, что кто-то шёл от второго дома к бане в 23:40, но не дадут опознать незнакомца у беседки. Если опознание в дальних зонах важно, туда позже добавляется отдельная камера с узким объективом — порты на регистраторе для этого есть.</p>
+</div>
+
+<h2>Список для заказа</h2>
+<p class="small">Отмечайте позиции галочками по мере заказа — отметки сохраняются в браузере. Ёмкость диска можно переключить, суммы пересчитаются.</p>
+
+<div class="group-head"><h2>Основное оборудование</h2><span class="group-sum" id="sum-core">—</span></div>
+<div class="disk" role="group" aria-label="Ёмкость жёсткого диска">
+  <button type="button" data-tb="4" aria-pressed="false">Диск 4 ТБ</button>
+  <button type="button" data-tb="6" aria-pressed="true">Диск 6 ТБ</button>
+  <button type="button" data-tb="10" aria-pressed="false">Диск 10 ТБ</button>
+</div>
+<div class="tw">
+<table>
+<thead><tr><th style="width:34px"></th><th>Позиция</th><th class="num">Кол-во</th><th class="num">Цена</th><th class="num">Сумма</th></tr></thead>
+<tbody id="rows-core">
+<tr data-id="cam8" data-group="core" data-qty="2" data-price="9500">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Камера 8 Мп над воротами</div>
+    <div class="item-model">Dahua DH-IPC-HFW2849SP-S-IL-0280B</div>
+    <div class="item-spec">1/2.7", 2.8 мм (111°), F1.6, ИК 30 м плюс тёплый белый свет 30 м, IP67, PoE, −40…+55 °C</div>
+  </td>
+  <td class="num">2</td><td class="num">9 500 ₽</td><td class="num sum">19 000 ₽</td>
+</tr>
+<tr data-id="cam4" data-group="core" data-qty="2" data-price="6800">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Камера 4 Мп на сосны</div>
+    <div class="item-model">Dahua DH-IPC-HFW2449SP-S-IL-0280B</div>
+    <div class="item-spec">1/2.9", 2.8 мм (95°), F1.6, ИК 30 м плюс тёплый белый свет 30 м, IP67, PoE, −40…+60 °C</div>
+  </td>
+  <td class="num">2</td><td class="num">6 800 ₽</td><td class="num sum">13 600 ₽</td>
+</tr>
+<tr data-id="nvr" data-group="core" data-qty="1" data-price="17000">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Видеорегистратор с 8 портами PoE</div>
+    <div class="item-model">Dahua DHI-NVR2108HS-8P-4KS3</div>
+    <div class="item-spec">8 каналов, 8 портов PoE с бюджетом 72 Вт, вход 144 Мбит/с, один диск до 20 ТБ, H.265+, HDMI 4K. Берётся 8-канальный сразу — каналы прошивкой не наращиваются</div>
+  </td>
+  <td class="num">1</td><td class="num">17 000 ₽</td><td class="num sum">17 000 ₽</td>
+</tr>
+<tr data-id="hdd" data-group="core" data-qty="1" data-price="16000">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Жёсткий диск для видеонаблюдения</div>
+    <div class="item-model" id="hdd-model">Seagate SkyHawk ST6000VX009, 6 ТБ</div>
+    <div class="item-spec">SATA 3.5 дюйма, серия для круглосуточной записи. Аналог — WD Purple той же ёмкости. Обычный десктопный диск здесь живёт год-полтора</div>
+  </td>
+  <td class="num">1</td><td class="num" id="hdd-price">16 000 ₽</td><td class="num sum">16 000 ₽</td>
+</tr>
+<tr data-id="router" data-group="core" data-qty="1" data-price="8500">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">4G-роутер</div>
+    <div class="item-model">Keenetic Runner 4G (KN-2211)</div>
+    <div class="item-spec">Слот для SIM, удалённый доступ без белого IP, автоперезагрузка при потере связи — без неё зависший модем означает поездку на участок</div>
+  </td>
+  <td class="num">1</td><td class="num">8 500 ₽</td><td class="num sum">8 500 ₽</td>
+</tr>
+<tr data-id="cable" data-group="core" data-qty="1" data-price="7000">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Кабель витая пара, уличный</div>
+    <div class="item-model">UTP cat5e outdoor, 4×2×0.51, чистая медь, оболочка ПЭ, бухта 305 м</div>
+    <div class="item-spec">На четыре камеры нужно около 150 м с запасом на трассу и петли. Бухта берётся целиком, потому что остаток уйдёт на будущие камеры. Только медь и только полиэтилен</div>
+  </td>
+  <td class="num">1</td><td class="num">7 000 ₽</td><td class="num sum">7 000 ₽</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="group-head"><h2>Монтажные материалы</h2><span class="group-sum" id="sum-mat">—</span></div>
+<div class="tw">
+<table>
+<thead><tr><th style="width:34px"></th><th>Позиция</th><th class="num">Кол-во</th><th class="num">Цена</th><th class="num">Сумма</th></tr></thead>
+<tbody id="rows-mat">
+<tr data-id="band" data-group="mat" data-qty="2" data-price="750">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Комплект крепления на дерево</div>
+    <div class="item-model">Стальная монтажная лента с натяжителем плюс площадка из бруска</div>
+    <div class="item-spec">По комплекту на каждую сосну. Камера крепится к площадке, площадка стягивается лентой вокруг ствола — саморезы в живое дерево не идут</div>
+  </td>
+  <td class="num">2</td><td class="num">750 ₽</td><td class="num sum">1 500 ₽</td>
+</tr>
+<tr data-id="box" data-group="mat" data-qty="4" data-price="250">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Гермокоробка распаячная</div>
+    <div class="item-model">IP65, 100×100×50 мм</div>
+    <div class="item-spec">Под каждую камеру: спрятать стык и запас кабеля</div>
+  </td>
+  <td class="num">4</td><td class="num">250 ₽</td><td class="num sum">1 000 ₽</td>
+</tr>
+<tr data-id="pipe" data-group="mat" data-qty="1" data-price="1200">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Гофра для кабеля</div>
+    <div class="item-model">ПНД гофрированная двустенная 20 мм, 50 м</div>
+    <div class="item-spec">Обязательна на трассе до сосен и по стволу: защита от грызунов, солнца и механики</div>
+  </td>
+  <td class="num">1</td><td class="num">1 200 ₽</td><td class="num sum">1 200 ₽</td>
+</tr>
+<tr data-id="crimp" data-group="mat" data-qty="1" data-price="1200">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Кримпер и тестер</div>
+    <div class="item-model">Клещи для RJ45 плюс LAN-тестер</div>
+    <div class="item-spec">Тестер обязателен: перепутанная пара на пятидесяти метрах ищется только прибором</div>
+  </td>
+  <td class="num">1</td><td class="num">1 200 ₽</td><td class="num sum">1 200 ₽</td>
+</tr>
+<tr data-id="rj45" data-group="mat" data-qty="1" data-price="400">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Коннекторы RJ45</div>
+    <div class="item-model">RJ45 cat5e, упаковка 100 шт</div>
+    <div class="item-spec">По два на камеру плюс запас: обжим с первого раза выходит не всегда</div>
+  </td>
+  <td class="num">1</td><td class="num">400 ₽</td><td class="num sum">400 ₽</td>
+</tr>
+<tr data-id="misc" data-group="mat" data-qty="1" data-price="800">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Крепёж и мелочи</div>
+    <div class="item-model">Стяжки УФ-стойкие, дюбели, гермовводы, изолента</div>
+    <div class="item-spec">Стяжки берите именно чёрные УФ-стойкие: обычные белые рассыпаются за один сезон</div>
+  </td>
+  <td class="num">1</td><td class="num">800 ₽</td><td class="num sum">800 ₽</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="group-head"><h2>Дополнительно</h2><span class="group-sum" id="sum-opt">—</span></div>
+<div class="tw">
+<table>
+<thead><tr><th style="width:34px"></th><th>Позиция</th><th class="num">Кол-во</th><th class="num">Цена</th><th class="num">Сумма</th></tr></thead>
+<tbody id="rows-opt">
+<tr data-id="surge" data-group="opt" data-qty="2" data-price="800">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Грозозащита Ethernet PoE</div>
+    <div class="item-model">Модуль грозозащиты PoE, RJ45</div>
+    <div class="item-spec">Для камер на соснах я бы не экономил: высокое дерево на открытом участке — это готовый громоотвод, а линия идёт прямо в регистратор</div>
+  </td>
+  <td class="num">2</td><td class="num">800 ₽</td><td class="num sum">1 600 ₽</td>
+</tr>
+<tr data-id="antenna" data-group="opt" data-qty="1" data-price="4000">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Антенна 4G MIMO</div>
+    <div class="item-model">Панельная 2×2, 15–17 дБ, два кабеля по 5 м, пигтейлы под роутер</div>
+    <div class="item-spec">За городом нужна почти всегда. Сначала проверьте уровень сигнала телефоном на месте установки роутера</div>
+  </td>
+  <td class="num">1</td><td class="num">4 000 ₽</td><td class="num sum">4 000 ₽</td>
+</tr>
+<tr data-id="ups" data-group="opt" data-qty="1" data-price="5000">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">ИБП для регистратора и роутера</div>
+    <div class="item-model">Линейно-интерактивный, 600–650 ВА</div>
+    <div class="item-spec">Переживает короткие просадки и корректно гасит диск при отключении света</div>
+  </td>
+  <td class="num">1</td><td class="num">5 000 ₽</td><td class="num sum">5 000 ₽</td>
+</tr>
+<tr data-id="heater" data-group="opt" data-qty="1" data-price="2500">
+  <td><input type="checkbox"></td>
+  <td>
+    <div class="item-name">Обогреватель с термостатом в щиток</div>
+    <div class="item-model">Нагреватель на DIN-рейку 50–100 Вт плюс термостат</div>
+    <div class="item-spec">Нужен, если в домике охраны зимой опускается до нуля: жёсткий диск работает только от 0 °C</div>
+  </td>
+  <td class="num">1</td><td class="num">2 500 ₽</td><td class="num sum">2 500 ₽</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="totals">
+  <div class="grow">
+    <div><b id="s-remaining">—</b></div>
+    <div class="tiny">Осталось докупить по неотмеченным позициям</div>
+  </div>
+  <div class="small" id="s-breakdown"></div>
+</div>
+
+<h2>Особенности этого объекта</h2>
+<p>Три вещи в этой схеме требуют внимания на монтаже — они не про выбор оборудования, а про то, как оно себя поведёт на месте.</p>
+
+<div class="cards">
+<div class="card">
+  <h3>Фары на въезде</h3>
+  <p>Камера К1 смотрит навстречу подъезжающей машине, а значит ночью — прямо в фары. По умолчанию автоэкспозиция подстроится под яркое пятно, и номер превратится в белую засветку. В настройках камеры нужно включить HLC, подавление засветки от источников света, и WDR. Обе камеры это умеют, но из коробки функция выключена.</p>
+</div>
+<div class="card">
+  <h3>Две камеры под одним коньком</h3>
+  <p>К1 и К2 висят в одной точке и смотрят в противоположные стороны, поэтому не мешают друг другу. Но следите, чтобы инфракрасная подсветка не била в близкую стену, свес крыши или столб ворот в двух-трёх метрах: отражение засветит весь кадр. Если такое есть, камеру отводят чуть в сторону или уменьшают мощность подсветки.</p>
+</div>
+<div class="card">
+  <h3>Крепление на сосны</h3>
+  <p>Дерево живое: ствол растёт в толщину, качается на ветру и выделяет смолу. Камера крепится не саморезами, а через деревянную площадку, стянутую стальной лентой с натяжителем — ленту потом можно ослабить. Кабель поднимается по стволу в гофре с запасом-петлёй, иначе через пару лет его перетянет.</p>
+</div>
+<div class="card">
+  <h3>Раскачивание и ложные тревоги</h3>
+  <p>На ветру сосна качается, вместе с ней качается кадр, а ветки в поле зрения дают постоянные срабатывания. Поэтому детекцию движения по пикселям надо отключить, а тревоги оставить только по SMD Plus, распознаванию человека и машины. Камеру лучше вешать на высоте 3,5–4 м на толстой части ствола, где амплитуда меньше.</p>
+</div>
+</div>
+
+<div class="note warn">
+<strong>Регистратор и диск не переносят мороз</strong>
+<p>Камеры рассчитаны на −40 °C, а регистратор работает от −10 °C, а жёсткий диск — только от 0 °C. Всепогодных регистраторов с диском не существует, их всегда ставят в тепло. Домик охраны для этого подходит, но если зимой при долгом отсутствии людей там опускается до нуля, это ровно граница живучести диска: держите хотя бы +5 °C или поставьте регистратор в щиток с термостатом и обогревателем.</p>
+</div>
+
+<h2>Настройки после монтажа</h2>
+<div class="tw">
+<table>
+<thead><tr><th>Что</th><th>Как</th><th>Зачем</th></tr></thead>
+<tbody>
+<tr><td>Кодек и частота кадров</td><td>H.265+, 15 кадров в секунду вместо 20–25</td><td>На картинке почти не видно, а архив растягивается примерно вдвое</td></tr>
+<tr><td>HLC и WDR на К1</td><td>Включить в настройках экспозиции камеры</td><td>Иначе фары ночью выбивают номер в белое пятно</td></tr>
+<tr><td>Тревоги</td><td>Только SMD Plus и охрана периметра, обычную детекцию движения выключить</td><td>Иначе телефон завалит тревогами от снега, дождя и качающихся сосен</td></tr>
+<tr><td>Тёплый белый свет</td><td>Расписание или отключение на камерах, смотрящих в сторону домов и соседей</td><td>Свет бьёт на 30 м, привлекает насекомых и светит в окна</td></tr>
+<tr><td>Просмотр с телефона</td><td>В приложении DMSS выставить качество Fluent, то есть подпоток</td><td>Основной поток 8 Мп съедает около 4 Мбит/с: час просмотра почти 2 ГБ трафика</td></tr>
+<tr><td>Пароли</td><td>Сменить пароль регистратора, порты наружу не открывать</td><td>Камеры с заводским паролем и открытым портом находят сканером за часы</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Удалённый доступ</h2>
+<p>Белый или статический IP покупать не нужно. Регистратор Dahua работает через сервис P2P: в приложении DMSS сканируется QR-код с экрана регистратора, и связь поднимается сама, даже когда оператор выдаёт серый адрес за NAT. Запись при этом полностью локальная — если 4G пропадёт, архив продолжит писаться, просто не будет удалённого просмотра.</p>
+<p>SIM-карта покупается отдельно, в салоне оператора. Перед этим стоит проверить на месте, чья сеть ловит лучше: за городом разница между операторами бывает решающей, а антенна не спасёт там, где сигнала нет вовсе. Тариф — пакет от 100–200 ГБ или безлимит для роутера.</p>
+
+<h2>На что смотреть при заказе</h2>
+<ul>
+  <li><b>Предпоследняя цифра в модели камеры: 49 и 89, а не 41 и 81.</b> HFW2841 и HFW2849 выглядят одинаково и имеют одно разрешение, но у первой объектив F2.0 и только инфракрасная подсветка, без цветной ночной съёмки. Разница в цене небольшая, в ночной картинке — принципиальная.</li>
+  <li><b>Буквы SP, а не SN.</b> SP — версия на 25 кадров для наших сетей, SN — на 30 кадров для Америки и Азии. Вторая тоже работает, но иногда даёт неровный поток и сложности с прошивкой.</li>
+  <li><b>Кабель только медный и только в полиэтилене.</b> Дешёвый CCA — это алюминий с медным покрытием: PoE на пятидесяти метрах через него может не дотянуть, а ПВХ-оболочка на морозе трескается, и линия начинает сыпаться после первой зимы.</li>
+  <li><b>Регистратор с литерой P.</b> В <code>NVR2108HS-8P-4KS3</code> важна каждая часть: 08 — восемь каналов, 8P — восемь портов PoE. Есть похожая модель <code>NVR2108HS-4KS3</code> без P: тоже восемь каналов, но вообще без PoE, и камеры от неё питаться не будут.</li>
+</ul>
+<p class="tiny">Цены ориентировочные, по состоянию на июль 2026 года. На Ozon они заметно плавают между продавцами: на весь комплект разброс легко достигает 10–15 тысяч, поэтому стоит сверить пару предложений по каждой позиции.</p>
+
+<footer>
+  Расчёт сделан под конкретную схему участка: четыре камеры сейчас, регистратор с запасом до восьми.
+  Схема на странице условная, без масштаба и привязки к местности.
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var DISKS = {
+    4:  { price: 10000, model: "Seagate SkyHawk ST4000VX016, 4 ТБ" },
+    6:  { price: 16000, model: "Seagate SkyHawk ST6000VX009, 6 ТБ" },
+    10: { price: 26000, model: "Seagate SkyHawk ST10000VE0008, 10 ТБ" }
+  };
+  var GB_PER_DAY = 134;   // 2 камеры 8 Мп по 4 Мбит/с + 2 камеры 4 Мп по 2.2 Мбит/с, H.265+, 15 к/с
+  var STORE_KEY = "cctv.bought.v1";
+  var DISK_KEY = "cctv.disk.v1";
+
+  function fmt(n) { return n.toLocaleString("ru-RU") + " ₽"; }
+
+  var rows = Array.prototype.slice.call(document.querySelectorAll("tr[data-id]"));
+  var diskBtns = Array.prototype.slice.call(document.querySelectorAll(".disk button"));
+
+  var bought = [];
+  try { bought = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { bought = []; }
+  var diskTb = parseInt(localStorage.getItem(DISK_KEY), 10);
+  if (!DISKS[diskTb]) diskTb = 6;
+
+  function applyDisk() {
+    var d = DISKS[diskTb];
+    var row = document.querySelector('tr[data-id="hdd"]');
+    row.setAttribute("data-price", d.price);
+    document.getElementById("hdd-model").textContent = d.model;
+    document.getElementById("hdd-price").textContent = fmt(d.price);
+    diskBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", String(parseInt(b.dataset.tb, 10) === diskTb));
+    });
+  }
+
+  function render() {
+    var sums = { core: 0, mat: 0, opt: 0 };
+    var remaining = 0;
+
+    rows.forEach(function (row) {
+      var qty = parseInt(row.dataset.qty, 10);
+      var price = parseInt(row.dataset.price, 10);
+      var total = qty * price;
+      var done = bought.indexOf(row.dataset.id) !== -1;
+
+      row.querySelector(".sum").textContent = fmt(total);
+      row.classList.toggle("done", done);
+      row.querySelector('input[type="checkbox"]').checked = done;
+
+      sums[row.dataset.group] += total;
+      if (!done) remaining += total;
+    });
+
+    var base = sums.core + sums.mat;
+    var full = base + sums.opt;
+    var days = Math.round(diskTb * 1000 / GB_PER_DAY);
+
+    document.getElementById("sum-core").textContent = fmt(sums.core);
+    document.getElementById("sum-mat").textContent = fmt(sums.mat);
+    document.getElementById("sum-opt").textContent = fmt(sums.opt);
+    document.getElementById("s-base").textContent = fmt(base);
+    document.getElementById("s-full").textContent = fmt(full);
+    document.getElementById("s-days").textContent = days + " дн.";
+    document.getElementById("s-days-label").textContent = "Архив 24/7 на диске " + diskTb + " ТБ";
+    document.getElementById("s-remaining").textContent = fmt(remaining);
+    document.getElementById("s-breakdown").textContent =
+      "Запись около " + GB_PER_DAY + " ГБ в сутки · поток 12,4 из 144 Мбит/с";
+  }
+
+  rows.forEach(function (row) {
+    row.querySelector('input[type="checkbox"]').addEventListener("change", function (e) {
+      var id = row.dataset.id;
+      if (e.target.checked) {
+        if (bought.indexOf(id) === -1) bought.push(id);
+      } else {
+        bought = bought.filter(function (x) { return x !== id; });
+      }
+      try { localStorage.setItem(STORE_KEY, JSON.stringify(bought)); } catch (err) {}
+      render();
+    });
+  });
+
+  diskBtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      diskTb = parseInt(b.dataset.tb, 10);
+      try { localStorage.setItem(DISK_KEY, String(diskTb)); } catch (err) {}
+      applyDisk();
+      render();
+    });
+  });
+
+  // Сектора обзора на схеме
+  var CONES = [
+    { x: 402, y: 560, bearing: 180, fov: 111, r: 60,  fill: "#5b93ff" },
+    { x: 402, y: 474, bearing: 0,   fov: 111, r: 150, fill: "#5b93ff" },
+    { x: 336, y: 318, bearing: 318, fov: 95,  r: 268, fill: "#4fb286" },
+    { x: 470, y: 318, bearing: 42,  fov: 95,  r: 268, fill: "#4fb286" }
+  ];
+
+  var g = document.getElementById("cones");
+  if (g) {
+    CONES.forEach(function (c) {
+      var pts = [c.x + " " + c.y];
+      var half = c.fov / 2;
+      for (var i = 0; i <= 12; i++) {
+        var a = (c.bearing - half + (c.fov * i) / 12) * Math.PI / 180;
+        pts.push((c.x + c.r * Math.sin(a)).toFixed(1) + " " + (c.y - c.r * Math.cos(a)).toFixed(1));
+      }
+      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", "M" + pts.join(" L") + " Z");
+      path.setAttribute("fill", c.fill);
+      path.setAttribute("fill-opacity", "0.16");
+      path.setAttribute("stroke", c.fill);
+      path.setAttribute("stroke-opacity", "0.5");
+      path.setAttribute("stroke-width", "1.2");
+      g.appendChild(path);
+    });
+  }
+
+  applyDisk();
+  render();
+})();
+</script>
+</body>
+</html>
